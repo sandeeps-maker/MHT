@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MHT — Malaysia &amp; Global Hotel &amp; Tours | 10% MHT Advantage Rate</title>
+  
+  <!-- SEO & PWA Meta Tags -->
+  <meta name="description" content="MHT Hotels & Tours: Exclusive 10% discounted partner hotel bookings and curated holiday packages across Singapore, Malaysia (Kuala Lumpur, Langkawi, Penang, Genting) and India." />
+  <meta name="theme-color" content="#0C1E36" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="MHT Stays" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="application-name" content="MHT Stays" />
+  
+  <!-- PWA Web App Manifest & Apple Touch Icons -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/jpeg" href="images/mht-logo.jpg" />
+  <link rel="apple-touch-icon" href="images/mht-logo.jpg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/mht-logo.jpg" />
+  <link rel="apple-touch-icon" sizes="152x152" href="images/mht-logo.jpg" />
+  <link rel="apple-touch-icon" sizes="120x120" href="images/mht-logo.jpg" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Custom Leonardo Style CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-[#F8FAFC] text-slate-900 selection:bg-amber-500 selection:text-white">
+
+  <!-- ========================================================
+       TOP PWA APP INSTALLATION BANNER
+       ======================================================== -->
+  <div id="pwa-top-banner" class="pwa-top-bar text-xs py-2 px-4 sticky top-0 z-50 flex items-center justify-between shadow-md">
+    <div class="flex items-center gap-2.5">
+      <div class="w-6 h-6 rounded bg-amber-500 text-slate-900 flex items-center justify-center font-extrabold text-[11px]">
+        M
+      </div>
+      <div>
+        <span class="text-white font-bold">MHT Mobile App:</span>
+        <span class="text-slate-200 text-[11px] hidden sm:inline"> Install on iOS/Android for 1-tap 10% discounted booking</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="pwa-install-btn" onclick="MHTApp.triggerInstallApp()" class="bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold text-[11px] py-1 px-3 rounded shadow transition">
+        Install App
+      </button>
+      <button id="pwa-dismiss-btn" class="text-slate-300 hover:text-white p-1" aria-label="Dismiss">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       LEONARDO-STYLE NAVIGATION HEADER
+       ======================================================== -->
+  <header class="sticky top-0 z-40 w-full leonardo-nav py-2 px-3 sm:px-6 lg:px-8 transition-all">
+    <div class="w-full flex items-center justify-center lg:justify-between">
+      
+      <!-- MHT Official Brand Logo (Centered & Big on Mobile, Left-aligned on Desktop) -->
+      <a href="#home" data-navigate="home" class="flex items-center justify-center group shrink-0" title="My Holiday Trip — Travel • Explore • Memories">
+        <img src="images/mht-logo.jpg" alt="MHT My Holiday Trip" class="w-16 h-16 sm:w-20 sm:h-20 lg:w-13 lg:h-13 rounded-full object-cover shadow-lg border-2 border-amber-400 group-hover:scale-105 group-hover:border-amber-500 transition shrink-0" />
+      </a>
+
+      <!-- Desktop Navigation Menu (Spacious & Clean) -->
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-xs uppercase tracking-wider font-extrabold text-slate-700">
+        <a href="#home" data-navigate="home" class="hover:text-amber-600 transition py-1">Home</a>
+        <a href="#tours" data-navigate="tours" class="hover:text-amber-600 transition py-1 flex items-center gap-1.5 text-purple-900">
+          <span>Singapore &amp; Malaysia 6N/7D</span>
+          <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] px-1.5 py-0.5 rounded font-black uppercase shadow-sm">Hot</span>
+        </a>
+        <a href="#malaysia" data-navigate="malaysia" class="hover:text-amber-600 transition py-1 flex items-center gap-1.5">
+          <span>Malaysia Stays</span>
+          <span class="bg-amber-100 text-amber-800 text-[10px] px-1.5 py-0.5 rounded font-bold">10%</span>
+        </a>
+        <a href="#hotels" data-navigate="hotels" class="hover:text-amber-600 transition py-1">Partner Hotels</a>
+        <a href="#custom-tour" data-navigate="custom-tour" class="hover:text-amber-600 transition py-1">Custom Trip</a>
+        <a href="#account" data-navigate="account" class="hover:text-amber-600 transition py-1 flex items-center gap-1.5 text-blue-950">
+          <i data-lucide="user" class="w-3.5 h-3.5 text-amber-600"></i>
+          <span>My Account</span>
+        </a>
+      </nav>
+
+      <!-- Right Header Actions (Desktop) -->
+      <div class="hidden lg:flex items-center gap-3">
+        <!-- Dynamic Desktop User Auth / Profile Button -->
+        <div id="header-auth-container" class="flex items-center">
+          <button onclick="MHTApp.openLoginModal()" id="header-login-btn" class="flex items-center gap-2 py-1.5 px-3 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-bold text-slate-800 transition">
+            <i data-lucide="log-in" class="w-3.5 h-3.5 text-amber-600"></i>
+            <span>VIP Login</span>
+          </button>
+        </div>
+
+        <div class="text-right text-xs border-l border-slate-200 pl-3">
+          <span class="text-slate-500 block text-[10px]">Call / WhatsApp:</span>
+          <a href="tel:+919893854811" class="font-bold text-[#0C1E36] hover:text-amber-600 block text-xs">+91 98938 54811</a>
+        </div>
+        <a href="https://wa.me/919893854811?text=Hi%20My%20Holiday%20Trip,%20I%20would%20like%20to%20inquire%20about%20the%20Singapore%20&%20Malaysia%20Tour%20Package." target="_blank" class="btn-primary text-xs py-2 px-3.5 shadow-sm">
+          <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================
+       PREMIUM NATIVE APP MOBILE DRAWER OVERLAY
+       ======================================================== -->
+  <div id="mobile-drawer" class="mobile-drawer-overlay" aria-hidden="true">
+    <div class="mobile-drawer-container">
+      
+      <!-- Drawer Header & VIP Profile Card -->
+      <div class="space-y-3 pb-3 border-b border-slate-100">
+        <div class="flex items-center justify-between">
+          <a href="#home" data-navigate="home" class="flex items-center gap-3">
+            <img src="images/mht-logo.jpg" class="w-11 h-11 rounded-full object-cover border-2 border-amber-400 shadow-md shrink-0" alt="Logo" />
+            <div>
+              <h3 class="font-black text-base text-slate-900 tracking-tight leading-none">My Holiday Trip</h3>
+              <span class="text-[10px] uppercase font-extrabold text-amber-600 tracking-widest mt-0.5 block">Travel • Explore • Memories</span>
+            </div>
+          </a>
+          <button id="mobile-drawer-close" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 flex items-center justify-center transition" aria-label="Close Menu">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <!-- VIP Membership Dynamic Pass Card -->
+        <div id="drawer-vip-card" class="p-3.5 rounded-2xl bg-gradient-to-br from-[#0C1E36] via-[#162F52] to-[#1E3A8A] border border-amber-400/40 shadow-xl text-white space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] uppercase font-black text-amber-400 tracking-widest flex items-center gap-1">
+              <i data-lucide="crown" class="w-3.5 h-3.5 text-amber-400"></i> MHT Advantage Club
+            </span>
+            <span id="drawer-auth-badge" class="bg-emerald-500/25 text-emerald-300 border border-emerald-400/40 text-[9px] font-black px-2 py-0.5 rounded-full">ACTIVE VIP</span>
+          </div>
+          <div class="flex items-center justify-between pt-1">
+            <div class="flex items-center gap-2.5">
+              <img id="drawer-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" class="w-9 h-9 rounded-xl object-cover border border-amber-400" alt="Avatar" />
+              <div>
+                <div id="drawer-user-name" class="text-xs font-bold text-white">Priya Sharma</div>
+                <div id="drawer-user-id" class="text-[10px] text-amber-300 font-mono">ID: MHT-VIP-8821</div>
+              </div>
+            </div>
+            <button onclick="MHTApp.navigateTo('account')" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[10px] px-2.5 py-1 rounded-lg shadow transition">
+              My Account
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer Navigation Links (Categorized Native App Menu) -->
+      <div class="flex flex-col gap-1.5 my-auto py-3 space-y-0.5">
+        
+        <div class="text-[10px] uppercase font-extrabold tracking-wider text-slate-400 px-2 pt-1">
+          Explore &amp; Hubs
+        </div>
+
+        <a href="#home" data-navigate="home" class="mobile-nav-link" data-view-id="home">
+          <div class="flex items-center gap-3">
+            <div class="nav-icon-wrap">
+              <i data-lucide="home" class="w-4 h-4 text-slate-700"></i>
+            </div>
+            <div>
+              <div class="font-bold text-xs uppercase tracking-wider text-slate-900">Home &amp; Search</div>
+              <div class="text-[10px] text-slate-500 font-normal">Dynamic Backdrop &amp; Offers</div>
+            </div>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+        </a>
+
+        <a href="#malaysia" data-navigate="malaysia" class="mobile-nav-link" data-view-id="malaysia">
+          <div class="flex items-center gap-3">
+            <div class="nav-icon-wrap bg-amber-50 text-amber-600 border-amber-200">
+              <i data-lucide="map-pin" class="w-4 h-4 text-amber-600"></i>
+            </div>
+            <div>
+              <div class="font-bold text-xs uppercase tracking-wider text-slate-900">Malaysia Stays Hub</div>
+              <div class="text-[10px] text-slate-500 font-normal">KLCC, Langkawi, Penang &amp; Genting</div>
+            </div>
+          </div>
+          <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 text-[10px] px-2 py-0.5 rounded-full font-black tracking-wide shadow-sm">10% OFF</span>
+        </a>
+
+        <a href="#hotels" data-navigate="hotels" class="mobile-nav-link" data-view-id="hotels">
+          <div class="flex items-center gap-3">
+            <div class="nav-icon-wrap">
+              <i data-lucide="building-2" class="w-4 h-4 text-slate-700"></i>
+            </div>
+            <div>
+              <div class="font-bold text-xs uppercase tracking-wider text-slate-900">All Partner Hotels</div>
+              <div class="text-[10px] text-slate-500 font-normal">Multi-photo &amp; Room Choices</div>
+            </div>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+        </a>
+
+        <a href="#tours" data-navigate="tours" class="mobile-nav-link" data-view-id="tours">
+          <div class="flex items-center gap-3">
+            <div class="nav-icon-wrap bg-blue-50 text-blue-600 border-blue-200">
+              <i data-lucide="compass" class="w-4 h-4 text-blue-600"></i>
+            </div>
+            <div>
+              <div class="font-bold text-xs uppercase tracking-wider text-slate-900">Tour Packages</div>
+              <div class="text-[10px] text-slate-500 font-normal">Day-by-Day Detailed Itineraries</div>
+            </div>
+          </div>
+          <span class="bg-blue-50 text-blue-700 border border-blue-200 text-[9px] px-1.5 py-0.5 rounded font-bold uppercase">Curated</span>
+        </a>
+
+        <a href="#custom-tour" data-navigate="custom-tour" class="mobile-nav-link" data-view-id="custom-tour">
+          <div class="flex items-center gap-3">
+            <div class="nav-icon-wrap">
+              <i data-lucide="sliders" class="w-4 h-4 text-slate-700"></i>
+            </div>
+            <div>
+              <div class="font-bold text-xs uppercase tracking-wider text-slate-900">Custom Trip Concierge</div>
+              <div class="text-[10px] text-slate-500 font-normal">Tailored Family &amp; Group Tours</div>
+            </div>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+        </a>
+
+        <div class="text-[10px] uppercase font-extrabold tracking-wider text-slate-400 px-2 pt-2">
+          My Account &amp; VIP Perks
+        </div>
+
+        <a href="#account" data-navigate="account" class="mobile-nav-link" data-view-id="account">
+          <div class="flex items-center gap-3">
+            <div class="nav-icon-wrap bg-purple-50 text-purple-600 border-purple-200">
+              <i data-lucide="user" class="w-4 h-4 text-purple-600"></i>
+            </div>
+            <div>
+              <div class="font-bold text-xs uppercase tracking-wider text-slate-900">My Account Dashboard</div>
+              <div class="text-[10px] text-slate-500 font-normal">Bookings, Savings &amp; Vouchers</div>
+            </div>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+        </a>
+
+        <!-- Install Mobile App Action -->
+        <button type="button" onclick="MHTApp.triggerInstallApp()" class="w-full mobile-nav-link text-left" aria-label="Install Mobile App">
+          <div class="flex items-center gap-3">
+            <div class="nav-icon-wrap bg-amber-50 text-amber-600 border-amber-200">
+              <i data-lucide="smartphone" class="w-4 h-4 text-amber-600"></i>
+            </div>
+            <div>
+              <div class="font-bold text-xs uppercase tracking-wider text-slate-900">Install MHT App</div>
+              <div class="text-[10px] text-slate-500 font-normal">Add to iPhone / Android Home Screen</div>
+            </div>
+          </div>
+          <span class="bg-amber-400 text-slate-950 text-[9px] px-2 py-0.5 rounded-full font-black uppercase shadow-sm">1-Tap</span>
+        </button>
+
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="space-y-2 pt-3 border-t border-slate-100">
+        <a href="https://wa.me/919893854811?text=Hi%20My%20Holiday%20Trip,%20I%20would%20like%20to%20inquire%20about%20Singapore%20&%20Malaysia%20tour%20packages%20and%20hotels." target="_blank" class="w-full py-2.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition">
+          <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Concierge (Direct)
+        </a>
+        <a href="tel:+919893854811" class="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 border border-slate-200 transition">
+          <i data-lucide="phone-call" class="w-3.5 h-3.5 text-amber-600"></i> Direct Call: +91 98938 54811
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================
+       VIEW 1: HOME PAGE
+       ======================================================== -->
+  <main id="view-home" class="view-section active">
+
+    <!-- HERO SECTION WITH DYNAMIC DESTINATION BACKDROP (LEONARDO STYLE) -->
+    <section class="relative min-h-[640px] sm:min-h-[700px] lg:min-h-[760px] flex items-center justify-center bg-slate-950 overflow-hidden pb-28 pt-20 sm:pb-36 sm:pt-28">
+      
+      <!-- Dual Layer Image Crossfade Container -->
+      <div id="hero-bg-container" class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+        <img id="hero-bg-img" src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=2160&q=85" alt="Destination Background" class="hero-bg-layer opacity-100 scale-100" />
+        <img id="hero-bg-img-next" src="" alt="Next Destination Background" class="hero-bg-layer opacity-0 scale-105" />
+        <!-- Soft Vignette & Deep Navy Gradient Overlay for High Contrast Legibility -->
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0C1E36] via-[#0C1E36]/65 to-slate-950/45"></div>
+      </div>
+
+      <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center text-white space-y-4">
+        
+        <!-- Dynamic Destination Title & Price (Updates instantly to match clicked destination) -->
+        <div class="space-y-3">
+          <h1 id="hero-title" class="hero-text-anim text-3xl sm:text-5xl lg:text-7xl font-black tracking-tight leading-[1.1] drop-shadow-lg">
+            My Holiday Trip - Malaysia
+          </h1>
+          
+          <div class="flex items-center justify-center gap-3 pt-1">
+            <span id="hero-price" class="hero-text-anim text-xl sm:text-3xl font-black text-amber-300 drop-shadow-md">
+              From ₹5,310 / night
+            </span>
+            <span class="text-xs sm:text-sm bg-emerald-500/25 text-emerald-300 border border-emerald-400/40 px-3 py-1 rounded-full font-extrabold shadow-sm">
+              10% OFF APPLIED
+            </span>
+          </div>
+        </div>
+
+        <!-- Sleek Horizontal Slidable Destination Slider (Desktop & Mobile with Prev/Next Controls and Data Below) -->
+        <div class="pt-4 max-w-full mx-auto relative group">
+          <div class="flex items-center justify-center gap-2 mb-2 text-xs uppercase font-extrabold tracking-wider text-slate-300">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>Explore Destinations &amp; Dynamic Backdrop:</span>
+          </div>
+
+          <div class="relative max-w-6xl mx-auto px-2 sm:px-10">
+            
+            <!-- Left Arrow (Prev) -->
+            <button id="hero-slider-prev" type="button" aria-label="Slide Left" class="absolute -left-1 sm:left-1 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-900/80 hover:bg-slate-900 border border-white/20 text-white flex items-center justify-center shadow-xl hover:scale-110 transition backdrop-blur-md cursor-pointer">
+              <i data-lucide="chevron-left" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Slidable Container -->
+            <div id="hero-destination-slider" class="flex items-stretch gap-3 overflow-x-auto no-scrollbar py-3 px-2 scroll-smooth cursor-grab select-none">
+              
+              <!-- 1. Singapore & Malaysia Combo (Featured) -->
+              <button type="button" class="hero-country-pill active flex-col items-start text-left border-amber-400/80 bg-gradient-to-br from-[#162F52] to-[#0C1E36]" data-destination-key="singapore-malaysia" onclick="MHTApp.setHeroDestination('singapore-malaysia')">
+                <div class="flex items-center gap-2 font-black text-sm">
+                  <span class="text-base">✨</span>
+                  <span>Singapore &amp; Malaysia</span>
+                </div>
+                <div class="country-pill-subdata mt-0.5 text-[11px] font-medium opacity-90">
+                  <span class="block text-amber-300 font-bold">6N/7D Signature Tour</span>
+                  <span class="text-amber-400 font-bold">From ₹62,999</span>
+                </div>
+              </button>
+
+              <!-- 2. Singapore & Sentosa -->
+              <button type="button" class="hero-country-pill flex-col items-start text-left" data-destination-key="singapore" onclick="MHTApp.setHeroDestination('singapore')">
+                <div class="flex items-center gap-2 font-black text-sm">
+                  <span class="text-base">🇸🇬</span>
+                  <span>Singapore &amp; Sentosa</span>
+                </div>
+                <div class="country-pill-subdata mt-0.5 text-[11px] font-medium opacity-90">
+                  <span class="block">Marina Bay Sands</span>
+                  <span class="text-amber-400 font-bold">From ₹8,820</span>
+                </div>
+              </button>
+
+              <!-- 3. Malaysia All -->
+              <button type="button" class="hero-country-pill flex-col items-start text-left" data-destination-key="malaysia" onclick="MHTApp.setHeroDestination('malaysia')">
+                <div class="flex items-center gap-2 font-black text-sm">
+                  <span class="text-base">🇲🇾</span>
+                  <span>Malaysia (All)</span>
+                </div>
+                <div class="country-pill-subdata mt-0.5 text-[11px] font-medium opacity-90">
+                  <span class="block">KL, Langkawi, Penang</span>
+                  <span class="text-amber-400 font-bold">From ₹5,310</span>
+                </div>
+              </button>
+
+              <!-- 4. Kuala Lumpur -->
+              <button type="button" class="hero-country-pill flex-col items-start text-left" data-destination-key="kuala-lumpur" onclick="MHTApp.setHeroDestination('kuala-lumpur')">
+                <div class="flex items-center gap-2 font-black text-sm">
+                  <span class="text-base">🏙️</span>
+                  <span>Kuala Lumpur</span>
+                </div>
+                <div class="country-pill-subdata mt-0.5 text-[11px] font-medium opacity-90">
+                  <span class="block">Petronas &amp; KLCC</span>
+                  <span class="text-amber-400 font-bold">From ₹7,020</span>
+                </div>
+              </button>
+
+              <!-- 5. Langkawi Island -->
+              <button type="button" class="hero-country-pill flex-col items-start text-left" data-destination-key="langkawi" onclick="MHTApp.setHeroDestination('langkawi')">
+                <div class="flex items-center gap-2 font-black text-sm">
+                  <span class="text-base">🏝️</span>
+                  <span>Langkawi Island</span>
+                </div>
+                <div class="country-pill-subdata mt-0.5 text-[11px] font-medium opacity-90">
+                  <span class="block">Beach &amp; Overwater</span>
+                  <span class="text-amber-400 font-bold">From ₹8,550</span>
+                </div>
+              </button>
+
+              <!-- 6. Penang -->
+              <button type="button" class="hero-country-pill flex-col items-start text-left" data-destination-key="penang" onclick="MHTApp.setHeroDestination('penang')">
+                <div class="flex items-center gap-2 font-black text-sm">
+                  <span class="text-base">🏛️</span>
+                  <span>Penang</span>
+                </div>
+                <div class="country-pill-subdata mt-0.5 text-[11px] font-medium opacity-90">
+                  <span class="block">George Town UNESCO</span>
+                  <span class="text-amber-400 font-bold">From ₹6,120</span>
+                </div>
+              </button>
+
+              <!-- 7. Genting Highlands -->
+              <button type="button" class="hero-country-pill flex-col items-start text-left" data-destination-key="genting" onclick="MHTApp.setHeroDestination('genting')">
+                <div class="flex items-center gap-2 font-black text-sm">
+                  <span class="text-base">⛰️</span>
+                  <span>Genting Highlands</span>
+                </div>
+                <div class="country-pill-subdata mt-0.5 text-[11px] font-medium opacity-90">
+                  <span class="block">Theme Parks &amp; Hills</span>
+                  <span class="text-amber-400 font-bold">From ₹5,310</span>
+                </div>
+              </button>
+
+
+              <!-- 9. Goa Beach -->
+              <button type="button" class="hero-country-pill flex-col items-start text-left" data-destination-key="goa" onclick="MHTApp.setHeroDestination('goa')">
+                <div class="flex items-center gap-2 font-black text-sm">
+                  <span class="text-base">🏖️</span>
+                  <span>Goa Beach</span>
+                </div>
+                <div class="country-pill-subdata mt-0.5 text-[11px] font-medium opacity-90">
+                  <span class="block">Sunset Resorts</span>
+                  <span class="text-amber-400 font-bold">From ₹5,220</span>
+                </div>
+              </button>
+
+              <!-- 10. Rajasthan -->
+              <button type="button" class="hero-country-pill flex-col items-start text-left" data-destination-key="rajasthan" onclick="MHTApp.setHeroDestination('rajasthan')">
+                <div class="flex items-center gap-2 font-black text-sm">
+                  <span class="text-base">🏰</span>
+                  <span>Rajasthan</span>
+                </div>
+                <div class="country-pill-subdata mt-0.5 text-[11px] font-medium opacity-90">
+                  <span class="block">Royal Palace Stays</span>
+                  <span class="text-amber-400 font-bold">From ₹6,480</span>
+                </div>
+              </button>
+
+              <!-- 11. Pachmarhi Hills -->
+              <button type="button" class="hero-country-pill flex-col items-start text-left" data-destination-key="pachmarhi" onclick="MHTApp.setHeroDestination('pachmarhi')">
+                <div class="flex items-center gap-2 font-black text-sm">
+                  <span class="text-base">🌲</span>
+                  <span>Pachmarhi Hills</span>
+                </div>
+                <div class="country-pill-subdata mt-0.5 text-[11px] font-medium opacity-90">
+                  <span class="block">Satpura Waterfalls</span>
+                  <span class="text-amber-400 font-bold">From ₹4,050</span>
+                </div>
+              </button>
+
+              <!-- 12. All Global Stays -->
+              <button type="button" class="hero-country-pill flex-col items-start text-left" data-destination-key="all" onclick="MHTApp.setHeroDestination('all')">
+                <div class="flex items-center gap-2 font-black text-sm">
+                  <span class="text-base">🌐</span>
+                  <span>All Global Stays</span>
+                </div>
+                <div class="country-pill-subdata mt-0.5 text-[11px] font-medium opacity-90">
+                  <span class="block">Worldwide Partners</span>
+                  <span class="text-amber-400 font-bold">From ₹3,420</span>
+                </div>
+              </button>
+
+            </div>
+
+            <!-- Right Arrow (Next) -->
+            <button id="hero-slider-next" type="button" aria-label="Slide Right" class="absolute -right-1 sm:right-1 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-900/80 hover:bg-slate-900 border border-white/20 text-white flex items-center justify-center shadow-xl hover:scale-110 transition backdrop-blur-md cursor-pointer">
+              <i data-lucide="chevron-right" class="w-5 h-5"></i>
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LEONARDO-STYLE FLOATING SEARCH BAR -->
+    <div class="max-w-7xl mx-auto px-4 -mt-16 sm:-mt-20 relative z-20">
+      <div class="leonardo-search-bar p-3 sm:p-5 shadow-2xl">
+        <form id="leonardo-search-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-center" onsubmit="return false;">
+          
+          <!-- 1. Destination Segment -->
+          <div class="search-field-segment rounded-lg">
+            <label class="block text-[10px] uppercase font-extrabold text-slate-400 tracking-wider mb-0.5">Destination / Region</label>
+            <select id="search-destination" class="w-full bg-transparent font-bold text-xs sm:text-sm text-slate-800 focus:outline-none cursor-pointer" onchange="MHTApp.setHeroDestination(this.value)">
+              <option value="singapore-malaysia">Singapore &amp; Malaysia (Combo 6N/7D)</option>
+              <option value="singapore">Singapore &amp; Sentosa Island</option>
+              <option value="malaysia" selected>Malaysia (All Regions)</option>
+              <option value="kuala-lumpur">Kuala Lumpur, Malaysia</option>
+              <option value="langkawi">Langkawi Island, Malaysia</option>
+              <option value="penang">Penang (George Town), Malaysia</option>
+              <option value="genting">Genting Highlands, Malaysia</option>
+              <option value="all">All Global Partner Stays</option>
+              <option value="goa">Goa Beachfront, India</option>
+              <option value="rajasthan">Rajasthan Heritage, India</option>
+              <option value="pachmarhi">Pachmarhi Hill Station, India</option>
+            </select>
+          </div>
+
+          <!-- 2. Check-in Date (Required) -->
+          <div id="checkin-field-wrapper" class="search-field-segment rounded-lg transition duration-200">
+            <div class="flex items-center justify-between mb-0.5">
+              <label for="search-checkin" class="block text-[10px] uppercase font-extrabold text-slate-400 tracking-wider">
+                Check-in <span class="text-rose-500 font-black">*</span>
+              </label>
+              <span class="text-[9px] text-slate-400 font-bold">Arrival</span>
+            </div>
+            <input type="date" id="search-checkin" required class="w-full bg-transparent font-bold text-xs sm:text-sm text-slate-800 focus:outline-none cursor-pointer" />
+          </div>
+
+          <!-- 3. Check-out Date (Required) -->
+          <div id="checkout-field-wrapper" class="search-field-segment rounded-lg transition duration-200">
+            <div class="flex items-center justify-between mb-0.5">
+              <label for="search-checkout" class="block text-[10px] uppercase font-extrabold text-slate-400 tracking-wider">
+                Check-out <span class="text-rose-500 font-black">*</span>
+              </label>
+              <span class="text-[9px] text-slate-400 font-bold">Departure</span>
+            </div>
+            <input type="date" id="search-checkout" required class="w-full bg-transparent font-bold text-xs sm:text-sm text-slate-800 focus:outline-none cursor-pointer" />
+          </div>
+
+          <!-- 4. Guests Segment -->
+          <div class="search-field-segment rounded-lg">
+            <div class="flex items-center justify-between mb-0.5">
+              <label for="search-guests" class="block text-[10px] uppercase font-extrabold text-slate-400 tracking-wider">Guests &amp; Rooms</label>
+              <span class="discount-pill text-[9px] px-1 py-0.2">10% OFF</span>
+            </div>
+            <select id="search-guests" class="w-full bg-transparent font-bold text-xs sm:text-sm text-slate-800 focus:outline-none cursor-pointer">
+              <option value="2 Adults, 1 Room" selected>2 Adults, 1 Room</option>
+              <option value="1 Adult, 1 Room">1 Adult, 1 Room</option>
+              <option value="2 Adults + 1 Child, 1 Room">2 Adults + 1 Child, 1 Room</option>
+              <option value="3 Adults, 1 Room">3 Adults, 1 Room</option>
+              <option value="4 Adults, 2 Rooms">4 Adults, 2 Rooms</option>
+              <option value="Family / Group (3+ Rooms)">Family / Group (3+ Rooms)</option>
+            </select>
+          </div>
+
+          <!-- 5. Submit Action -->
+          <div class="px-1">
+            <button id="leonardo-search-btn" type="button" class="btn-primary w-full py-3.5 text-xs font-black uppercase tracking-wider justify-center shadow-lg hover:shadow-orange-500/25">
+              <i data-lucide="search" class="w-4 h-4"></i> Search Stays
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         SIGNATURE FEATURED TOUR: SINGAPORE & MALAYSIA (6N/7D)
+         OFFICIAL BROCHURE PACKAGE (VIBRANT & COLORFUL APP SHOWCASE)
+         ======================================================== -->
+    <section class="py-12 px-4 sm:px-6 max-w-7xl mx-auto">
+      <div class="rounded-3xl bg-gradient-to-br from-white via-slate-50 to-amber-50/30 border border-slate-200/90 p-6 sm:p-10 text-slate-900 shadow-xl relative overflow-hidden space-y-8">
+        
+        <!-- Multi-Color Soft Ambient Glow Spheres -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Top Header & Badge -->
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-200">
+          <div class="space-y-2.5">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <img src="images/mht-logo.jpg" alt="MHT Logo" class="w-11 h-11 rounded-full object-cover border-2 border-amber-400 shadow-md shrink-0" />
+              <span class="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white font-black text-xs uppercase px-3.5 py-1 rounded-full shadow-md flex items-center gap-1.5 tracking-wide">
+                <i data-lucide="sparkles" class="w-4 h-4 text-white"></i> Signature 2-Country Tour
+              </span>
+              <span class="bg-cyan-50 text-cyan-800 border border-cyan-200 text-xs px-3 py-1 rounded-full font-extrabold shadow-sm">
+                6 Nights / 7 Days
+              </span>
+              <span class="bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs px-2.5 py-1 rounded-full font-black">
+                10% OFF VIP RATE
+              </span>
+            </div>
+            <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#0C1E36]">
+              SINGAPORE &amp; MALAYSIA TOUR PACKAGE
+            </h2>
+            <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm">
+              <span class="text-amber-600 font-black tracking-wider uppercase">
+                2 Countries • Endless Memories
+              </span>
+              <span class="text-slate-300">&bull;</span>
+              <span class="inline-flex items-center gap-1 bg-sky-50 text-sky-800 border border-sky-200 px-2.5 py-0.5 rounded-full text-[11px] font-bold">
+                🇸🇬 Marina Bay Sands
+              </span>
+              <span class="inline-flex items-center gap-1 bg-amber-50 text-amber-900 border border-amber-200 px-2.5 py-0.5 rounded-full text-[11px] font-bold">
+                🏙️ Petronas Towers
+              </span>
+              <span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-900 border border-emerald-200 px-2.5 py-0.5 rounded-full text-[11px] font-bold">
+                ⛰️ Genting Highlands
+              </span>
+            </div>
+          </div>
+
+          <!-- Quick Helpline Badge -->
+          <div class="flex items-center gap-3 bg-white border border-amber-200/90 p-4 rounded-2xl shadow-sm">
+            <div class="text-xs">
+              <span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">Call &amp; WhatsApp Concierge:</span>
+              <a href="tel:+919893854811" class="text-[#0C1E36] font-black text-sm hover:text-amber-600 transition flex items-center gap-1 mt-0.5">
+                <i data-lucide="phone" class="w-3.5 h-3.5 text-amber-500"></i> +91 98938 54811
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Vibrant Landmark Highlight Cards (Marina Bay Sands, Petronas Towers, Genting) -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+          
+          <!-- Landmark 1: Singapore Marina Bay Sands -->
+          <div class="p-3.5 rounded-2xl bg-white border border-slate-200 hover:border-sky-400 space-y-2 shadow-sm hover:shadow-md hover:scale-[1.02] transition duration-300">
+            <div class="h-32 rounded-xl overflow-hidden relative group">
+              <img src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=600&q=80" alt="Marina Bay Sands" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+              <span class="absolute bottom-2 left-2 bg-gradient-to-r from-sky-500 to-blue-600 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow-md">
+                🇸🇬 Singapore
+              </span>
+            </div>
+            <h4 class="font-black text-sm text-slate-900">Marina Bay Sands</h4>
+            <p class="text-[11px] text-slate-600">Merlion Park, Gardens by the Bay &amp; Sentosa</p>
+          </div>
+
+          <!-- Landmark 2: Kuala Lumpur Petronas Towers -->
+          <div class="p-3.5 rounded-2xl bg-white border-2 border-amber-300 hover:border-amber-500 space-y-2 shadow-sm hover:shadow-md hover:scale-[1.02] transition duration-300">
+            <div class="h-32 rounded-xl overflow-hidden relative group">
+              <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=600&q=80" alt="Petronas Towers" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+              <span class="absolute bottom-2 left-2 bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-lg shadow-md">
+                🇲🇾 Kuala Lumpur
+              </span>
+            </div>
+            <h4 class="font-black text-sm text-slate-900">Petronas Twin Towers</h4>
+            <p class="text-[11px] text-slate-600">KLCC Skyline, Shopping &amp; Bukit Bintang</p>
+          </div>
+
+          <!-- Landmark 3: Genting Highlands & Batu Caves -->
+          <div class="p-3.5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-400 space-y-2 shadow-sm hover:shadow-md hover:scale-[1.02] transition duration-300">
+            <div class="h-32 rounded-xl overflow-hidden relative group">
+              <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80" alt="Genting Highlands" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+              <span class="absolute bottom-2 left-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow-md">
+                ⛰️ Genting &amp; Caves
+              </span>
+            </div>
+            <h4 class="font-black text-sm text-slate-900">Genting &amp; Batu Caves</h4>
+            <p class="text-[11px] text-slate-600">Awana SkyWay Cable Car &amp; Theme Parks</p>
+          </div>
+        </div>
+
+        <!-- Day-by-Day 7-Day Colorful Distinct Itinerary Grid -->
+        <div class="space-y-3 pt-2">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base sm:text-lg font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+              <i data-lucide="map" class="w-5 h-5 text-amber-500"></i>
+              <span>7-Day Comprehensive Tour Highlights</span>
+            </h3>
+            <span class="text-xs text-slate-600 bg-white border border-slate-200 px-3 py-1 rounded-full font-bold shadow-sm">Guided Sightseeing by Coach</span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 text-xs">
+            
+            <!-- DAY 1: Singapore Arrival (Blue/Cyan) -->
+            <div class="p-3 rounded-2xl bg-sky-50/70 border border-sky-200 space-y-1.5 shadow-sm hover:shadow hover:border-sky-300 transition">
+              <span class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-[10px] font-black px-2 py-0.5 rounded-lg block text-center shadow-sm">DAY 1</span>
+              <strong class="text-slate-900 block text-xs pt-1">Arrival Singapore</strong>
+              <p class="text-[10px] text-slate-600 leading-tight">Airport pickup, Merlion Park, Marina Bay Sands, Gardens by the Bay.</p>
+            </div>
+
+            <!-- DAY 2: City Tour (Teal/Emerald) -->
+            <div class="p-3 rounded-2xl bg-teal-50/70 border border-teal-200 space-y-1.5 shadow-sm hover:shadow hover:border-teal-300 transition">
+              <span class="bg-gradient-to-r from-teal-600 to-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded-lg block text-center shadow-sm">DAY 2</span>
+              <strong class="text-slate-900 block text-xs pt-1">City Tour</strong>
+              <p class="text-[10px] text-slate-600 leading-tight">Chinatown, Little India, Orchard Road &amp; Optional Night Safari.</p>
+            </div>
+
+            <!-- DAY 3: Sentosa Island (Amber/Gold) -->
+            <div class="p-3 rounded-2xl bg-amber-50/70 border border-amber-200 space-y-1.5 shadow-sm hover:shadow hover:border-amber-300 transition">
+              <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-lg block text-center shadow-sm">DAY 3</span>
+              <strong class="text-slate-900 block text-xs pt-1">Sentosa Island</strong>
+              <p class="text-[10px] text-slate-600 leading-tight">Cable Car Ride, Madame Tussauds, Wings of Time Show &amp; Beaches.</p>
+            </div>
+
+            <!-- DAY 4: Universal Studios (Purple/Pink) -->
+            <div class="p-3 rounded-2xl bg-purple-50/70 border border-purple-200 space-y-1.5 shadow-sm hover:shadow hover:border-purple-300 transition">
+              <span class="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-[10px] font-black px-2 py-0.5 rounded-lg block text-center shadow-sm">DAY 4</span>
+              <strong class="text-slate-900 block text-xs pt-1">Universal Studios</strong>
+              <p class="text-[10px] text-slate-600 leading-tight">Full-day adventure at Universal Studios Singapore + Bugis shopping.</p>
+            </div>
+
+            <!-- DAY 5: Kuala Lumpur (Rose/Coral) -->
+            <div class="p-3 rounded-2xl bg-rose-50/70 border border-rose-200 space-y-1.5 shadow-sm hover:shadow hover:border-rose-300 transition">
+              <span class="bg-gradient-to-r from-rose-600 to-orange-500 text-white text-[10px] font-black px-2 py-0.5 rounded-lg block text-center shadow-sm">DAY 5</span>
+              <strong class="text-slate-900 block text-xs pt-1">Kuala Lumpur</strong>
+              <p class="text-[10px] text-slate-600 leading-tight">Coach transfer to KL, Petronas Towers photo stop &amp; Bukit Bintang.</p>
+            </div>
+
+            <!-- DAY 6: Genting & Caves (Indigo/Violet) -->
+            <div class="p-3 rounded-2xl bg-indigo-50/70 border border-indigo-200 space-y-1.5 shadow-sm hover:shadow hover:border-indigo-300 transition">
+              <span class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-[10px] font-black px-2 py-0.5 rounded-lg block text-center shadow-sm">DAY 6</span>
+              <strong class="text-slate-900 block text-xs pt-1">Genting &amp; Caves</strong>
+              <p class="text-[10px] text-slate-600 leading-tight">Awana Cable Car, Genting Highlands mountain views &amp; Batu Caves.</p>
+            </div>
+
+            <!-- DAY 7: Departure (Emerald/Teal) -->
+            <div class="p-3 rounded-2xl bg-emerald-50/70 border border-emerald-200 space-y-1.5 shadow-sm hover:shadow hover:border-emerald-300 transition col-span-2 sm:col-span-1">
+              <span class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-[10px] font-black px-2 py-0.5 rounded-lg block text-center shadow-sm">DAY 7</span>
+              <strong class="text-slate-900 block text-xs pt-1">Departure</strong>
+              <p class="text-[10px] text-slate-600 leading-tight">KL city sightseeing, airport transfer &amp; return flight.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Tier Vivid Pricing Cards + Inclusions & Visa Info -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch pt-2">
+          
+          <!-- 3 Package Pricing Options -->
+          <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            
+            <!-- Tier 1: Budget Package (3★ Hotels - Fresh Cyan Theme) -->
+            <div class="p-5 rounded-2xl bg-white border-2 border-cyan-200 hover:border-cyan-400 space-y-3 flex flex-col justify-between shadow-md hover:shadow-lg transition duration-300">
+              <div class="space-y-2">
+                <span class="bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-[10px] font-black px-2.5 py-1 rounded-md uppercase tracking-wider block w-fit shadow-sm">
+                  Budget Package
+                </span>
+                <h4 class="font-black text-base text-slate-900">3★ Partner Hotels</h4>
+                <div class="pt-1">
+                  <span class="text-xs text-slate-400 line-through block">₹69,999</span>
+                  <span class="text-2xl sm:text-3xl font-black text-cyan-700">₹62,999</span>
+                  <span class="bg-cyan-50 text-cyan-800 border border-cyan-200 text-[10px] px-2 py-0.5 rounded-full inline-block font-black mt-1">
+                    10% Advantage Applied
+                  </span>
+                </div>
+                <ul class="text-[11px] text-slate-700 space-y-1.5 pt-2 border-t border-slate-100">
+                  <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-600 shrink-0"></i> 6 Nights Hotel Accommodation</li>
+                  <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-600 shrink-0"></i> Daily Buffet Breakfast</li>
+                  <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-600 shrink-0"></i> Airport Transfers</li>
+                  <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-600 shrink-0"></i> City Tours &amp; Sightseeing</li>
+                </ul>
+              </div>
+              <button onclick="MHTApp.openTourDetailPage('mht-pkg-singapore-malaysia-6n7d')" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-xs shadow-md shadow-cyan-600/25 transition text-center cursor-pointer">
+                Book 3★ Budget Tier
+              </button>
+            </div>
+
+            <!-- Tier 2: Standard Package (4★ Hotels - Dazzling Gold / Royal Amber Theme) - HIGHLIGHTED -->
+            <div class="p-5 rounded-2xl bg-gradient-to-b from-amber-50/80 via-white to-amber-50/40 border-2 border-amber-400 space-y-3 flex flex-col justify-between shadow-xl shadow-amber-500/15 relative scale-[1.02] sm:scale-105 z-10 transition duration-300">
+              <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-400 via-yellow-300 to-orange-500 text-slate-950 font-black text-[10px] px-3.5 py-1 rounded-full uppercase shadow-md tracking-wider flex items-center gap-1">
+                <i data-lucide="crown" class="w-3.5 h-3.5 text-slate-950"></i> Most Popular
+              </span>
+              <div class="space-y-2">
+                <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-md uppercase tracking-wider block w-fit shadow-sm">
+                  Standard Package
+                </span>
+                <h4 class="font-black text-base text-slate-900">4★ Premium Hotels</h4>
+                <div class="pt-1">
+                  <span class="text-xs text-slate-400 line-through block">₹94,999</span>
+                  <span class="text-3xl sm:text-4xl font-black text-amber-700">₹85,499</span>
+                  <span class="bg-amber-100 text-amber-900 border border-amber-300 text-[10px] px-2.5 py-0.5 rounded-full inline-block font-black mt-1">
+                    10% Advantage Applied
+                  </span>
+                </div>
+                <ul class="text-[11px] text-slate-700 space-y-1.5 pt-2 border-t border-amber-200/60">
+                  <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i> 6 Nights in 4★ Partner Hotels</li>
+                  <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i> Daily International Breakfast</li>
+                  <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i> All AC Coach Transfers</li>
+                  <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i> Universal Studios &amp; Sentosa</li>
+                </ul>
+              </div>
+              <button onclick="MHTApp.openTourDetailPage('mht-pkg-singapore-malaysia-6n7d')" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-300 to-orange-500 text-slate-950 font-black text-xs shadow-lg shadow-amber-500/30 hover:scale-[1.02] transition text-center cursor-pointer">
+                Book 4★ Standard
+              </button>
+            </div>
+
+            <!-- Tier 3: Premium Package (5★ Resorts - Luxurious Royal Purple Theme) -->
+            <div class="p-5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 space-y-3 flex flex-col justify-between shadow-md hover:shadow-lg transition duration-300">
+              <div class="space-y-2">
+                <span class="bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white text-[10px] font-black px-2.5 py-1 rounded-md uppercase tracking-wider block w-fit shadow-sm">
+                  Premium Package
+                </span>
+                <h4 class="font-black text-base text-slate-900">5★ Luxury Resorts</h4>
+                <div class="pt-1">
+                  <span class="text-xs text-slate-400 line-through block">₹1,39,999</span>
+                  <span class="text-2xl sm:text-3xl font-black text-purple-700">₹1,25,999</span>
+                  <span class="bg-purple-50 text-purple-800 border border-purple-200 text-[10px] px-2 py-0.5 rounded-full inline-block font-black mt-1">
+                    10% Advantage Applied
+                  </span>
+                </div>
+                <ul class="text-[11px] text-slate-700 space-y-1.5 pt-2 border-t border-slate-100">
+                  <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-600 shrink-0"></i> 5★ Luxury Marina Bay / KLCC</li>
+                  <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-600 shrink-0"></i> VIP Guided Experience</li>
+                  <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-600 shrink-0"></i> Gourmet Daily Breakfast</li>
+                  <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-600 shrink-0"></i> All Admission Tickets &amp; Cable Car</li>
+                </ul>
+              </div>
+              <button onclick="MHTApp.openTourDetailPage('mht-pkg-singapore-malaysia-6n7d')" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs shadow-md shadow-purple-600/25 transition text-center cursor-pointer">
+                Book 5★ Luxury
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Inclusions, Visa Info & Instant WhatsApp Cards -->
+          <div class="lg:col-span-4 space-y-4">
+            
+            <!-- Inclusions Vivid Emerald Card -->
+            <div class="p-4 rounded-2xl bg-emerald-50/70 border-2 border-emerald-200 space-y-2.5 text-xs shadow-sm">
+              <h4 class="font-black text-emerald-900 text-xs uppercase tracking-wider flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">✓</span>
+                <span>Package Inclusions</span>
+              </h4>
+              <ul class="text-[11px] text-slate-700 space-y-1.5">
+                <li class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> Return Airfare (Ex. India)</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> 6 Nights Accommodation</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> Daily Lavish Breakfast</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> All Transfers &amp; Sightseeing by Coach</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> English Speaking Professional Guide</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> All Applicable Taxes Included</li>
+              </ul>
+            </div>
+
+            <!-- Visa & Best Time Info (Vivid Deep Sapphire Card) -->
+            <div class="p-4 rounded-2xl bg-blue-50/70 border-2 border-blue-200 space-y-2 text-[11px] text-slate-700 shadow-sm">
+              <h4 class="font-black text-blue-950 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="shield-check" class="w-4 h-4 text-blue-600"></i>
+                <span>Visa &amp; Best Time</span>
+              </h4>
+              <p class="flex items-center gap-1.5"><strong class="text-slate-900">🇸🇬 Singapore:</strong> E-Visa (3-5 working days, ~SGD 30)</p>
+              <p class="flex items-center gap-1.5"><strong class="text-slate-900">🇲🇾 Malaysia:</strong> Visa-Free Entry for Indians in 2026</p>
+              <div class="pt-1.5 text-[10px] text-amber-800 font-bold border-t border-blue-200/60">
+                Best Season: Singapore (Feb-Apr, Jul-Sep) &bull; Malaysia (Mar-Oct)
+              </div>
+            </div>
+
+            <!-- 1-Click WhatsApp Booking -->
+            <a href="https://wa.me/919893854811?text=Hi%20My%20Holiday%20Trip,%20I%20am%20interested%20in%20the%20Singapore%20&%20Malaysia%206N/7D%20Tour%20Package." target="_blank" class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#25D366] via-emerald-500 to-teal-500 hover:from-[#20bd5a] hover:to-teal-400 text-white font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 hover:scale-[1.02] transition cursor-pointer">
+              <i data-lucide="message-circle" class="w-5 h-5"></i> Inquire via WhatsApp Concierge
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MALAYSIA DESTINATION SPOTLIGHT SECTION -->
+    <section class="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div>
+          <span class="text-xs font-extrabold uppercase text-amber-600 tracking-wider">Explore Malaysia</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-0.5">Top Malaysia Destinations</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">Discover world-class skylines, rainforest islands, and mountain retreats.</p>
+        </div>
+        <button data-navigate="malaysia" class="btn-outline text-xs px-5 py-2.5 self-start sm:self-auto">
+          View All Malaysia Stays &rarr;
+        </button>
+      </div>
+
+      <!-- 4-Grid Destination Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Kuala Lumpur -->
+        <div onclick="MHTApp.setHeroDestination('kuala-lumpur'); MHTApp.activeHotelFilter='malaysia'; MHTApp.navigateTo('hotels')" class="destination-card group">
+          <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=600&q=80" alt="Kuala Lumpur" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 right-4 text-white">
+            <span class="text-[10px] uppercase font-bold text-amber-400">Capital City</span>
+            <h4 class="font-extrabold text-lg">Kuala Lumpur</h4>
+            <p class="text-[11px] text-slate-300">Petronas Towers, Bukit Bintang &amp; Luxury Suites</p>
+          </div>
+        </div>
+
+        <!-- Langkawi Island -->
+        <div onclick="MHTApp.setHeroDestination('langkawi'); MHTApp.activeHotelFilter='malaysia'; MHTApp.navigateTo('hotels')" class="destination-card group">
+          <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80" alt="Langkawi Island" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 right-4 text-white">
+            <span class="text-[10px] uppercase font-bold text-amber-400">Tropical Island</span>
+            <h4 class="font-extrabold text-lg">Langkawi Island</h4>
+            <p class="text-[11px] text-slate-300">Beachfront Resorts, Cable Car &amp; Mangroves</p>
+          </div>
+        </div>
+
+        <!-- Penang -->
+        <div onclick="MHTApp.setHeroDestination('penang'); MHTApp.activeHotelFilter='malaysia'; MHTApp.navigateTo('hotels')" class="destination-card group">
+          <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=600&q=80" alt="Penang" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 right-4 text-white">
+            <span class="text-[10px] uppercase font-bold text-amber-400">UNESCO Heritage</span>
+            <h4 class="font-extrabold text-lg">Penang (George Town)</h4>
+            <p class="text-[11px] text-slate-300">Colonial Mansions, Street Art &amp; Gourmet Food</p>
+          </div>
+        </div>
+
+        <!-- Genting Highlands -->
+        <div onclick="MHTApp.setHeroDestination('genting'); MHTApp.activeHotelFilter='malaysia'; MHTApp.navigateTo('hotels')" class="destination-card group">
+          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80" alt="Genting Highlands" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 right-4 text-white">
+            <span class="text-[10px] uppercase font-bold text-amber-400">Mountain Resort</span>
+            <h4 class="font-extrabold text-lg">Genting Highlands</h4>
+            <p class="text-[11px] text-slate-300">Theme Parks, SkyWay Cable Car &amp; Clouds</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FEATURED PARTNER HOTELS GRID -->
+    <section class="py-12 px-4 sm:px-6 max-w-7xl mx-auto border-t border-slate-200">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div>
+          <span class="text-xs font-extrabold uppercase text-amber-600 tracking-wider">Handpicked Luxury</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-0.5">Featured Partner Hotels</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">Book at our negotiated 10% discounted client tariffs.</p>
+        </div>
+        <button data-navigate="hotels" class="btn-outline text-xs px-5 py-2.5 self-start sm:self-auto">
+          View All Hotels &rarr;
+        </button>
+      </div>
+
+      <div id="home-featured-hotels" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- FEATURED TOUR PACKAGES -->
+    <section class="py-12 px-4 sm:px-6 max-w-7xl mx-auto border-t border-slate-200">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div>
+          <span class="text-xs font-extrabold uppercase text-amber-600 tracking-wider">All-Inclusive Holidays</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-0.5">Popular Curated Tour Packages</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">Complete travel packages with 4/5-star hotels, transfers, sightseeing, and breakfast.</p>
+        </div>
+        <button data-navigate="tours" class="btn-outline text-xs px-5 py-2.5 self-start sm:self-auto">
+          View All Tour Packages &rarr;
+        </button>
+      </div>
+
+      <div id="home-featured-tours" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================
+       VIEW 2: MALAYSIA STAYS SPOTLIGHT & PACKAGES
+       ======================================================== -->
+  <main id="view-malaysia" class="view-section">
+    <section class="bg-[#0C1E36] py-16 px-4 sm:px-6 text-white text-center">
+      <div class="max-w-4xl mx-auto space-y-3">
+        <span class="bg-amber-500 text-slate-900 font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wider">MHT Malaysia Destination Hub</span>
+        <h1 class="text-3xl sm:text-5xl font-black">Malaysia Hotels &amp; Tour Packages</h1>
+        <p class="text-slate-300 text-xs sm:text-sm max-w-2xl mx-auto">
+          From the iconic Petronas Towers of Kuala Lumpur to the pristine beaches of Langkawi and the clouds of Genting Highlands, book with your guaranteed 10% MHT discount.
+        </p>
+      </div>
+    </section>
+
+    <section class="py-12 px-4 sm:px-6 max-w-7xl mx-auto space-y-12">
+      <div>
+        <h3 class="text-xl font-extrabold text-slate-900 mb-6 flex items-center gap-2">
+          <i data-lucide="hotel" class="w-5 h-5 text-amber-600"></i>
+          <span>Partner Hotels in Malaysia</span>
+        </h3>
+        <div id="home-malaysia-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================
+       VIEW 3: ALL PARTNER HOTELS
+       ======================================================== -->
+  <main id="view-hotels" class="view-section">
+    <section class="py-12 px-4 sm:px-6 max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-8 space-y-2">
+        <span class="discount-pill text-xs font-bold">10% OFF DIRECT TARIFFS</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Partner Hotels &amp; Resorts</h1>
+        <p class="text-slate-500 text-xs sm:text-sm">
+          Select from our handpicked partner network. All bookings automatically apply your 10% MHT client discount.
+        </p>
+      </div>
+
+      <!-- Filter Pills -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mb-8">
+        <button data-filter="all" class="hotel-filter-pill px-4 py-2 rounded-full text-xs font-bold bg-slate-900 text-white shadow-sm transition">All Destinations</button>
+        <button data-filter="singapore" class="hotel-filter-pill px-4 py-2 rounded-full text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">Singapore</button>
+        <button data-filter="malaysia" class="hotel-filter-pill px-4 py-2 rounded-full text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">Malaysia (KL, Langkawi, Penang)</button>
+        <button data-filter="goa" class="hotel-filter-pill px-4 py-2 rounded-full text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">Goa Beachfront</button>
+        <button data-filter="rajasthan" class="hotel-filter-pill px-4 py-2 rounded-full text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">Rajasthan</button>
+      </div>
+
+      <!-- Grid -->
+      <div id="hotels-catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================
+       VIEW 4: TOUR PACKAGES CATALOG
+       ======================================================== -->
+  <main id="view-tours" class="view-section">
+    <section class="py-12 px-4 sm:px-6 max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-8 space-y-2">
+        <span class="mht-advantage-badge text-xs">MHT Curated Itineraries</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Curated Tour Packages</h1>
+        <p class="text-slate-500 text-xs sm:text-sm">
+          Complete holiday itineraries with guaranteed partner hotel accommodation, AC vehicles, daily breakfast, and sightseeing.
+        </p>
+      </div>
+
+      <!-- Filter Pills -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mb-8">
+        <button data-filter="all" class="tour-filter-pill px-4 py-2 rounded-full text-xs font-bold bg-slate-900 text-white shadow-sm transition">All Packages</button>
+        <button data-filter="singapore-malaysia" class="tour-filter-pill px-4 py-2 rounded-full text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">Singapore &amp; Malaysia (6N/7D)</button>
+        <button data-filter="malaysia" class="tour-filter-pill px-4 py-2 rounded-full text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">Malaysia Holidays</button>
+      </div>
+
+      <!-- Grid -->
+      <div id="tours-catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================
+       VIEW: DEDICATED HOTEL DETAILS PAGE (MULTI-PHOTO & OPTIONS)
+       ======================================================== -->
+  <main id="view-hotel-detail" class="view-section">
+    <div id="hotel-detail-container" class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <!-- Dynamically Rendered via MHTApp.showHotelDetailsPage(id) -->
+    </div>
+  </main>
+
+  <!-- ========================================================
+       VIEW: DEDICATED TOUR PACKAGE DETAILS PAGE (MULTI-PHOTO & ITINERARY)
+       ======================================================== -->
+  <main id="view-tour-detail" class="view-section">
+    <div id="tour-detail-container" class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <!-- Dynamically Rendered via MHTApp.showTourDetailsPage(id) -->
+    </div>
+  </main>
+
+  <!-- ========================================================
+       VIEW 5: CUSTOM ITINERARY BUILDER
+       ======================================================== -->
+  <main id="view-custom-tour" class="view-section">
+    <section class="py-12 px-4 sm:px-6 max-w-4xl mx-auto">
+      <div class="bg-white p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-xl space-y-6">
+        <div class="text-center max-w-xl mx-auto space-y-2">
+          <span class="discount-pill text-xs">Custom Travel Concierge</span>
+          <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Request Custom Itinerary</h1>
+          <p class="text-xs text-slate-500">Plan a customized family or corporate tour with partner hotel allocations and 10% savings.</p>
+        </div>
+
+        <form onsubmit="event.preventDefault(); MHTApp.showToast('Custom trip request submitted! We will WhatsApp you with a quote.', 'success'); this.reset();" class="space-y-4 pt-2">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs uppercase font-extrabold text-slate-500 mb-1">Your Full Name *</label>
+              <input type="text" required placeholder="e.g. Ankit Sharma" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+            </div>
+            <div>
+              <label class="block text-xs uppercase font-extrabold text-slate-500 mb-1">WhatsApp Mobile *</label>
+              <input type="tel" required placeholder="+91 98938 XXXXX" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs uppercase font-extrabold text-slate-500 mb-1">Target Destinations *</label>
+              <input type="text" required placeholder="e.g. Malaysia, KL, Langkawi" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+            </div>
+            <div>
+              <label class="block text-xs uppercase font-extrabold text-slate-500 mb-1">Proposed Travel Date</label>
+              <input type="date" value="2026-10-20" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+            </div>
+            <div>
+              <label class="block text-xs uppercase font-extrabold text-slate-500 mb-1">Number of Travelers</label>
+              <input type="number" min="1" value="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase font-extrabold text-slate-500 mb-1">Special Preferences / Requests</label>
+            <textarea rows="3" placeholder="Hotel preferences, airport transfers, theme park tickets, dietary requirements..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-900 focus:outline-none focus:border-blue-900"></textarea>
+          </div>
+
+          <div class="text-center pt-2">
+            <button type="submit" class="btn-primary px-8 py-3.5 text-xs font-bold shadow-md">
+              <i data-lucide="send" class="w-4 h-4"></i> Submit Custom Tour Request &rarr;
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================
+       VIEW 6: MY ACCOUNT DASHBOARD (VIP PRIVILEGE & SAVINGS HUB)
+       ======================================================== -->
+  <main id="view-account" class="view-section">
+    <section class="py-8 sm:py-12 px-4 sm:px-6 max-w-6xl mx-auto space-y-8">
+      
+      <!-- Account Header & VIP Member Banner -->
+      <div id="account-vip-banner" class="rounded-3xl bg-gradient-to-br from-[#0C1E36] via-[#162F52] to-slate-900 border border-amber-400/40 p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+        <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          
+          <div class="flex items-center gap-4">
+            <div class="relative">
+              <img id="account-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="User Profile" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-2 border-amber-400 shadow-md" />
+              <div class="absolute -bottom-2 -right-2 w-6 h-6 bg-emerald-500 rounded-full border-2 border-[#0C1E36] flex items-center justify-center text-white text-[10px]" title="Active Member">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <div class="flex flex-wrap items-center gap-2">
+                <h1 id="account-user-name" class="text-xl sm:text-3xl font-black text-white">Priya Sharma</h1>
+                <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black text-[10px] uppercase px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+                  <i data-lucide="crown" class="w-3 h-3"></i> 10% VIP Pass
+                </span>
+              </div>
+              <p class="text-xs text-slate-300 flex items-center gap-2">
+                <span>Member ID: <strong id="account-user-id" class="text-amber-300 font-mono">MHT-VIP-8821</strong></span>
+                <span>&bull;</span>
+                <span id="account-user-phone">+91 98938 54811</span>
+              </p>
+              <div class="text-[11px] text-emerald-300 font-medium flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Guaranteed 10% Lifetime Savings on all Malaysia &amp; Global partner stays</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5 w-full md:w-auto justify-start md:justify-end border-t md:border-t-0 pt-4 md:pt-0 border-white/10">
+            <button onclick="MHTApp.openLoginModal()" class="py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/20 transition flex items-center gap-1.5">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Switch User / OTP
+            </button>
+            <button onclick="MHTApp.logoutUser()" class="py-2.5 px-4 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-400/30 font-bold text-xs transition flex items-center gap-1.5">
+              <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Logout
+            </button>
+          </div>
+
+        </div>
+
+        <!-- KPI Quick Metric Ribbons -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-white/10 text-xs">
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+            <span class="text-slate-400 text-[10px] uppercase font-bold block">Lifetime Savings</span>
+            <strong id="account-kpi-savings" class="text-amber-300 text-lg sm:text-xl font-black block">₹14,580</strong>
+            <span class="text-emerald-400 text-[10px] font-semibold">10% Privilege Applied</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+            <span class="text-slate-400 text-[10px] uppercase font-bold block">My Bookings</span>
+            <strong id="account-kpi-bookings" class="text-white text-lg sm:text-xl font-black block">2 Stays</strong>
+            <span class="text-slate-400 text-[10px]">Confirmed vouchers</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+            <span class="text-slate-400 text-[10px] uppercase font-bold block">Next Trip Vouchers</span>
+            <strong id="account-kpi-vouchers" class="text-amber-300 text-lg sm:text-xl font-black block">5 Active</strong>
+            <span class="text-amber-400 text-[10px]">Ready to redeem</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+            <span class="text-slate-400 text-[10px] uppercase font-bold block">Privilege Status</span>
+            <strong class="text-emerald-300 text-lg sm:text-xl font-black block">Elite VIP</strong>
+            <span class="text-slate-400 text-[10px]">10% Off All Stays</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Navigation Tabs (4 Sections) -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-200 no-scrollbar" id="account-tabs-bar">
+        <button onclick="MHTApp.switchAccountTab('bookings')" id="acc-tab-btn-bookings" class="account-tab-btn active px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition whitespace-nowrap">
+          <i data-lucide="bookmark-check" class="w-4 h-4"></i>
+          <span>My Bookings &amp; Vouchers</span>
+          <span id="acc-tab-badge-bookings" class="bg-blue-100 text-blue-900 text-[10px] px-2 py-0.5 rounded-full font-black">2</span>
+        </button>
+
+        <button onclick="MHTApp.switchAccountTab('savings')" id="acc-tab-btn-savings" class="account-tab-btn px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition whitespace-nowrap">
+          <i data-lucide="wallet" class="w-4 h-4"></i>
+          <span>My Savings with MHT</span>
+          <span class="bg-emerald-100 text-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-black">10% Cash Saved</span>
+        </button>
+
+        <button onclick="MHTApp.switchAccountTab('vouchers')" id="acc-tab-btn-vouchers" class="account-tab-btn px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition whitespace-nowrap">
+          <i data-lucide="ticket" class="w-4 h-4"></i>
+          <span>My Vouchers for Next Trip</span>
+          <span class="bg-amber-100 text-amber-900 text-[10px] px-2 py-0.5 rounded-full font-black">5 Perks</span>
+        </button>
+
+        <button onclick="MHTApp.switchAccountTab('recommended')" id="acc-tab-btn-recommended" class="account-tab-btn px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition whitespace-nowrap">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          <span>Recommended Tours &amp; Hotels</span>
+          <span class="bg-purple-100 text-purple-900 text-[10px] px-2 py-0.5 rounded-full font-black">Curated</span>
+        </button>
+      </div>
+
+      <!-- Tab Content 1: My Bookings & Vouchers -->
+      <div id="acc-panel-bookings" class="account-panel-content space-y-4">
+        <div class="flex items-center justify-between pb-2">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Confirmed Booking Vouchers</h3>
+            <p class="text-xs text-slate-500">View, download, or WhatsApp your official hotel and tour booking confirmation receipts.</p>
+          </div>
+          <button onclick="MHTApp.navigateTo('hotels')" class="btn-primary text-xs py-2 px-3.5 hidden sm:flex">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i> Book Another Stay
+          </button>
+        </div>
+        <div id="my-bookings-container" class="space-y-4">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- Tab Content 2: My Savings with MHT -->
+      <div id="acc-panel-savings" class="account-panel-content hidden space-y-6">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Tab Content 3: My Vouchers for Next Trip -->
+      <div id="acc-panel-vouchers" class="account-panel-content hidden space-y-6">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Tab Content 4: Recommended Tours & Hotels -->
+      <div id="acc-panel-recommended" class="account-panel-content hidden space-y-6">
+        <!-- Rendered via JS -->
+      </div>
+
+    </section>
+  </main>
+
+  <!-- ========================================================
+       VIEW 7: ADMIN PORTAL (COMMISSION & EARNINGS ANALYTICS)
+       ======================================================== -->
+  <main id="view-admin" class="view-section">
+    <section class="py-12 px-4 sm:px-6 max-w-6xl mx-auto space-y-10">
+      
+      <!-- Admin Header -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="mht-advantage-badge text-xs">MHT Executive</span>
+            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-emerald-300">
+              COMMISSION &amp; REVENUE ENGINE
+            </span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">Partner Commission &amp; Hotel Management</h1>
+          <p class="text-xs text-slate-500 mt-1">
+            Track commission earned from partner hotels on client bookings, payout settlements, and catalog operations.
+          </p>
+        </div>
+        <span class="bg-blue-100 text-blue-900 border border-blue-200 text-xs px-3.5 py-1.5 rounded-full font-bold flex items-center gap-1.5 self-start md:self-auto">
+          <span class="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span>
+          <span>PMS / API Migration Ready</span>
+        </span>
+      </div>
+
+      <!-- ========================================================
+           ADMIN SECTION 1: COMMISSION & REVENUE KPI METRICS
+           ======================================================== -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Total Bookings -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] uppercase font-extrabold tracking-wider text-slate-400">Total Bookings</span>
+            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center">
+              <i data-lucide="bookmark-check" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span id="admin-kpi-total-bookings" class="text-2xl sm:text-3xl font-black text-slate-900">0</span>
+            <span class="text-xs text-slate-500 font-medium">Reservations</span>
+          </div>
+          <p class="text-[10px] text-slate-400 mt-1">Client bookings via MHT Portal</p>
+        </div>
+
+        <!-- Total Gross Booking Value (GMV) -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] uppercase font-extrabold tracking-wider text-slate-400">Gross Booking Value</span>
+            <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center">
+              <i data-lucide="credit-card" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span id="admin-kpi-gross-gmv" class="text-2xl sm:text-3xl font-black text-slate-900">₹0</span>
+          </div>
+          <p class="text-[10px] text-slate-400 mt-1">Total revenue transacted</p>
+        </div>
+
+        <!-- Total Hotel Commission Earned -->
+        <div class="bg-gradient-to-br from-[#0C1E36] to-[#162F52] p-5 rounded-2xl border border-amber-500/30 text-white shadow-lg relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] uppercase font-extrabold tracking-wider text-amber-400">Hotel Commission Earned</span>
+            <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-400/30">
+              <i data-lucide="wallet" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span id="admin-kpi-total-commission" class="text-2xl sm:text-3xl font-black text-amber-300">₹0</span>
+            <span class="text-[10px] bg-amber-400/20 text-amber-300 px-1.5 py-0.5 rounded font-bold border border-amber-300/30">Avg 15% Rate</span>
+          </div>
+          <p class="text-[10px] text-slate-300 mt-1">Net profit earned from partner hotels</p>
+        </div>
+
+        <!-- Client Savings Generated (10% OFF) -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] uppercase font-extrabold tracking-wider text-slate-400">Client Savings Given</span>
+            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center">
+              <i data-lucide="shield-check" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span id="admin-kpi-client-savings" class="text-2xl sm:text-3xl font-black text-emerald-700">₹0</span>
+            <span class="discount-pill text-[9px]">10% OFF</span>
+          </div>
+          <p class="text-[10px] text-slate-400 mt-1">Delivered to personal clients</p>
+        </div>
+
+      </div>
+
+      <!-- ========================================================
+           ADMIN SECTION 2: HOTEL-WISE COMMISSION BREAKDOWN
+           ======================================================== -->
+      <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <i data-lucide="building-2" class="w-5 h-5 text-amber-600"></i>
+              <span>Partner Hotel Commission Breakdown</span>
+            </h3>
+            <p class="text-xs text-slate-500">Summary of total bookings and net commission revenue per partner property.</p>
+          </div>
+          <span class="text-xs text-slate-500 font-medium">Auto-calculated from confirmed reservations</span>
+        </div>
+
+        <!-- Responsive Table Container -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-700">
+            <thead class="bg-slate-50 text-slate-500 uppercase font-extrabold text-[10px] tracking-wider border-b border-slate-200">
+              <tr>
+                <th class="py-3 px-4">Partner Hotel</th>
+                <th class="py-3 px-4">Location</th>
+                <th class="py-3 px-4 text-center">Bookings Count</th>
+                <th class="py-3 px-4 text-right">Gross Booking Volume</th>
+                <th class="py-3 px-4 text-center">Commission %</th>
+                <th class="py-3 px-4 text-right font-black text-slate-900">Commission Earned (₹)</th>
+              </tr>
+            </thead>
+            <tbody id="admin-hotel-commission-table" class="divide-y divide-slate-100 font-medium">
+              <!-- Rendered dynamically via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           ADMIN SECTION 3: INTERACTIVE CLIENT COMMISSION SIMULATOR
+           (DEMO TOOL TO SHOW PROSPECTIVE CLIENTS HOW COMMISSIONS WORK)
+           ======================================================== -->
+      <div class="bg-gradient-to-br from-slate-900 via-[#0C1E36] to-slate-900 p-6 sm:p-8 rounded-3xl border border-amber-500/30 text-white shadow-xl space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+              <span class="text-xs uppercase font-extrabold tracking-wider text-amber-400">Client Demonstration Tool</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Live Hotel Commission &amp; Customer Earnings Simulator</h3>
+            <p class="text-xs text-slate-300 mt-1">
+              Demonstrate to your client how partner hotel discounts (10% to customer) and your commission margin (10%-20%) work in real-time.
+            </p>
+          </div>
+          <span class="bg-amber-400/20 text-amber-300 border border-amber-400/30 text-[11px] px-3 py-1 rounded-full font-bold self-start sm:self-auto">
+            Interactive Model
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          
+          <!-- Simulator Controls -->
+          <div class="lg:col-span-6 space-y-4 text-xs">
+            
+            <!-- 1. Expected Customer Bookings -->
+            <div>
+              <div class="flex justify-between font-bold text-slate-200 mb-1.5">
+                <label>Number of Customer Hotel Bookings:</label>
+                <span id="sim-bookings-val" class="text-amber-400 font-extrabold text-sm">50 Bookings</span>
+              </div>
+              <input type="range" id="sim-bookings-slider" min="5" max="200" step="5" value="50" class="w-full accent-amber-500 cursor-pointer" />
+              <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                <span>5 Stays</span>
+                <span>50 Stays</span>
+                <span>100 Stays</span>
+                <span>200 Stays</span>
+              </div>
+            </div>
+
+            <!-- 2. Average Hotel Stay Rate -->
+            <div>
+              <label class="block font-bold text-slate-200 mb-1.5">Avg Hotel Booking Amount (₹):</label>
+              <input type="number" id="sim-avg-rate" value="7000" step="500" class="w-full bg-white/10 border border-white/20 rounded-xl px-3.5 py-2.5 text-xs text-white font-bold focus:outline-none focus:border-amber-400" />
+            </div>
+
+            <!-- 3. Commission Tier Selector -->
+            <div>
+              <label class="block font-bold text-slate-200 mb-1.5">Select Partner Commission %:</label>
+              <div class="grid grid-cols-4 gap-2">
+                <button type="button" class="sim-comm-btn py-2 px-2.5 rounded-lg border border-white/20 hover:border-amber-400 text-xs font-bold transition text-center" data-rate="10">10%</button>
+                <button type="button" class="sim-comm-btn py-2 px-2.5 rounded-lg border border-white/20 hover:border-amber-400 text-xs font-bold transition text-center" data-rate="12">12%</button>
+                <button type="button" class="sim-comm-btn active py-2 px-2.5 rounded-lg border border-amber-400 bg-amber-400 text-slate-950 text-xs font-black transition text-center" data-rate="15">15% (Std)</button>
+                <button type="button" class="sim-comm-btn py-2 px-2.5 rounded-lg border border-white/20 hover:border-amber-400 text-xs font-bold transition text-center" data-rate="20">20%</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Simulator Live Output Cards -->
+          <div class="lg:col-span-6 grid grid-cols-2 gap-3">
+            
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">Total Customer Spend</span>
+              <span id="sim-out-gmv" class="text-xl sm:text-2xl font-black text-white">₹3,50,000</span>
+              <span class="text-[10px] text-slate-400 block">Transacted stays</span>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-400/20 space-y-1">
+              <span class="text-[10px] uppercase font-bold text-emerald-400 block">10% Customer Saved</span>
+              <span id="sim-out-savings" class="text-xl sm:text-2xl font-black text-emerald-300">₹35,000</span>
+              <span class="text-[10px] text-emerald-400/80 block">Direct client discount</span>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-gradient-to-tr from-amber-500/20 to-orange-500/20 border border-amber-400/40 space-y-1 col-span-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] uppercase font-black text-amber-400">Your Net Commission Earned</span>
+                <span id="sim-out-rate-badge" class="text-[10px] bg-amber-400 text-slate-950 font-black px-2 py-0.5 rounded-full">15% Margin</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span id="sim-out-commission" class="text-2xl sm:text-4xl font-black text-amber-300">₹52,500</span>
+                <span class="text-xs text-slate-300 font-medium">(Net Profit)</span>
+              </div>
+              <p class="text-[11px] text-slate-300 pt-1 border-t border-white/10 mt-2">
+                Avg. Profit per Booking: <strong id="sim-out-per-booking" class="text-white">₹1,050</strong>
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Clarification Banner regarding Tour Packages -->
+        <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3 text-xs text-slate-300">
+          <i data-lucide="info" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+          <p class="text-[11px] leading-relaxed">
+            <strong>Business Model Rule:</strong> Commission is earned directly from <strong>partner hotel stays booked by customers</strong>. All <strong>Tour Packages</strong> have the hotel accommodation, transport, and sightseeing already bundled into the all-inclusive package price with zero separate hotel markups.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- ========================================================
+           ADMIN SECTION 4: COMMISSION LEDGER & BOOKING RECEIPTS
+           ======================================================== -->
+      <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <i data-lucide="receipt" class="w-5 h-5 text-amber-600"></i>
+              <span>Booking Commission Receipts &amp; Payout Ledger</span>
+            </h3>
+            <p class="text-xs text-slate-500">Itemized breakdown of commission earned per hotel booking with settlement toggling.</p>
+          </div>
+        </div>
+
+        <div id="admin-commission-ledger" class="space-y-3">
+          <!-- Rendered dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- ========================================================
+           ADMIN SECTION 5: ADD HOTEL & TOUR FORMS
+           ======================================================== -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Add Hotel Form -->
+        <div class="lg:col-span-6 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+          <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <i data-lucide="plus-circle" class="w-5 h-5 text-amber-600"></i>
+            <span>Add Partner Hotel</span>
+          </h3>
+
+          <form id="admin-add-hotel-form" class="space-y-3 text-xs">
+            <div>
+              <label class="block text-slate-600 font-bold mb-1">Hotel Name *</label>
+              <input type="text" id="admin-hotel-name" required placeholder="e.g. Shangri-La Kuala Lumpur" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-slate-600 font-bold mb-1">City *</label>
+                <input type="text" id="admin-hotel-city" required placeholder="e.g. Kuala Lumpur" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+              </div>
+              <div>
+                <label class="block text-slate-600 font-bold mb-1">Country *</label>
+                <input type="text" id="admin-hotel-country" value="Malaysia" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-slate-600 font-bold mb-1">Destination Category *</label>
+                <select id="admin-hotel-dest-cat" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900">
+                  <option value="singapore">Singapore</option>
+                  <option value="malaysia">Malaysia</option>
+                  <option value="goa">Goa</option>
+                  <option value="rajasthan">Rajasthan</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-slate-600 font-bold mb-1">Rack Rate (₹) *</label>
+                <input type="number" id="admin-hotel-rack" required placeholder="6500" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+              <div>
+                <label class="block text-slate-600 font-bold mb-1">Client Discount %</label>
+                <input type="number" id="admin-hotel-discount" value="10" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+              </div>
+              <div>
+                <label class="block text-slate-600 font-bold mb-1">Our Commission % *</label>
+                <input type="number" id="admin-hotel-commission" value="15" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900 font-bold text-emerald-800" />
+              </div>
+              <div>
+                <label class="block text-slate-600 font-bold mb-1">Image URL</label>
+                <input type="url" id="admin-hotel-img" placeholder="https://..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-slate-600 font-bold mb-1">Description</label>
+              <textarea id="admin-hotel-desc" rows="2" placeholder="Hotel amenities, skyline view, location..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900"></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary w-full py-2.5 text-xs font-bold justify-center">
+              Save Hotel to MHT
+            </button>
+          </form>
+        </div>
+
+        <!-- Add Tour Form -->
+        <div class="lg:col-span-6 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+          <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <i data-lucide="compass" class="w-5 h-5 text-amber-600"></i>
+            <span>Add Tour Package</span>
+          </h3>
+
+          <form id="admin-add-tour-form" class="space-y-3 text-xs">
+            <div>
+              <label class="block text-slate-600 font-bold mb-1">Package Title *</label>
+              <input type="text" id="admin-tour-title" required placeholder="e.g. 5D/4N Langkawi &amp; Penang Luxury" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-slate-600 font-bold mb-1">Destination *</label>
+                <input type="text" id="admin-tour-dest" required placeholder="e.g. Langkawi • Penang" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+              </div>
+              <div>
+                <label class="block text-slate-600 font-bold mb-1">Duration *</label>
+                <input type="text" id="admin-tour-duration" required placeholder="e.g. 5 Days / 4 Nights" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-slate-600 font-bold mb-1">Standard Price (₹) *</label>
+                <input type="number" id="admin-tour-price" required placeholder="32000" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+              </div>
+              <div>
+                <label class="block text-slate-600 font-bold mb-1">Client Discount %</label>
+                <input type="number" id="admin-tour-discount" value="10" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-slate-600 font-bold mb-1">Category</label>
+                <select id="admin-tour-cat" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900">
+                  <option value="singapore-malaysia">Singapore &amp; Malaysia (6N/7D)</option>
+                  <option value="malaysia">Malaysia</option>
+                  <option value="all">Global</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-slate-600 font-bold mb-1">Image URL</label>
+                <input type="url" id="admin-tour-img" placeholder="https://..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-slate-600 font-bold mb-1">Highlights</label>
+              <textarea id="admin-tour-desc" rows="2" placeholder="5-Star Resort, Island Boat Tour, Breakfast..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900"></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary w-full py-2.5 text-xs font-bold justify-center">
+              Save Tour Package
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- ========================================================
+           ADMIN SECTION 5: ACTIVE CATALOG MANAGEMENT
+           ======================================================== -->
+      <div class="space-y-6">
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
+          <h3 class="text-lg font-bold text-slate-900 mb-4">Active Hotels in Catalog</h3>
+          <div id="admin-hotel-list" class="space-y-3">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
+          <h3 class="text-lg font-bold text-slate-900 mb-4">Active Tour Packages</h3>
+          <div id="admin-tour-list" class="space-y-3">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- ========================================================
+       FOOTER (MY HOLIDAY TRIP BRANDED)
+       ======================================================== -->
+  <footer class="bg-[#0C1E36] text-white pt-12 pb-24 lg:pb-12 px-4 sm:px-8 text-xs border-t border-slate-800">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      
+      <div class="space-y-3">
+        <div class="flex items-center gap-3">
+          <img src="images/mht-logo.jpg" class="w-10 h-10 rounded-full object-cover border-2 border-amber-400 shadow-md shrink-0" alt="Logo" />
+          <div>
+            <span class="font-extrabold text-base text-white block leading-tight">My Holiday Trip</span>
+            <span class="text-[9px] uppercase font-bold text-amber-400 tracking-wider">Travel • Explore • Memories</span>
+          </div>
+        </div>
+        <p class="text-slate-300 text-xs leading-relaxed">
+          Your trusted international holiday &amp; luxury partner hotel booking portal. Specializing in Singapore, Malaysia, and global tailor-made experiences with guaranteed 10% client savings.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-bold text-amber-400 uppercase text-xs">Top Tour Packages</h4>
+        <ul class="space-y-1.5 text-slate-300">
+          <li><a href="#tours" onclick="MHTApp.openTourDetailPage('mht-pkg-singapore-malaysia-6n7d')" class="hover:text-white font-bold text-amber-300">★ Singapore &amp; Malaysia 6N/7D</a></li>
+          <li><a href="#hotels" onclick="MHTApp.activeHotelFilter='singapore'; MHTApp.navigateTo('hotels')" class="hover:text-white">Marina Bay Sands, Singapore</a></li>
+          <li><a href="#hotels" onclick="MHTApp.activeHotelFilter='malaysia'; MHTApp.navigateTo('hotels')" class="hover:text-white">Kuala Lumpur &amp; Genting Stays</a></li>
+          <li><a href="#hotels" onclick="MHTApp.activeHotelFilter='malaysia'; MHTApp.navigateTo('hotels')" class="hover:text-white">Langkawi Beach Overwater Villas</a></li>
+        </ul>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-bold text-amber-400 uppercase text-xs">Contact &amp; Helplines</h4>
+        <ul class="space-y-1.5 text-slate-300">
+          <li class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-amber-400"></i> Call / WhatsApp: <a href="tel:+919893854811" class="hover:text-white font-bold">+91 98938 54811</a></li>
+        </ul>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-bold text-amber-400 uppercase text-xs">MHT Advantage Pass</h4>
+        <p class="text-slate-300 text-[11px]">Save 10% on every hotel booking + earn redeemable travel vouchers.</p>
+        <button onclick="MHTApp.openIOSInstallModal()" class="border border-white/30 hover:bg-white/10 text-white font-bold text-[11px] py-2 px-3 rounded w-full justify-center transition">
+          <i data-lucide="download" class="w-3.5 h-3.5 inline mr-1"></i> Add MHT App to Home Screen
+        </button>
+      </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-400">
+      <div>© 2026 My Holiday Trip (MHT) &bull; Singapore &amp; Malaysia Tours. All Rights Reserved.</div>
+      <div class="text-amber-400 font-bold">Pack your bags, we take care of the rest!</div>
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       MODAL: HOTEL BOOKING
+       ======================================================== -->
+  <div id="hotel-booking-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full border border-slate-200 shadow-2xl modal-enter max-h-[92vh] overflow-y-auto">
+      
+      <div class="flex items-start justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-3">
+          <img id="modal-hotel-img" class="w-12 h-12 rounded-xl object-cover shadow-sm" />
+          <div>
+            <span class="discount-pill text-[10px]">10% MHT ADVANTAGE</span>
+            <h3 id="modal-hotel-name" class="font-bold text-base text-slate-900 mt-0.5">Hotel Name</h3>
+            <p id="modal-hotel-location" class="text-xs text-slate-500">Location</p>
+          </div>
+        </div>
+        <button onclick="document.getElementById('hotel-booking-modal').classList.add('hidden')" class="p-1 text-slate-400 hover:text-slate-700">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="modal-hotel-booking-form" class="space-y-3.5 mt-4 text-xs">
+        <div>
+          <label class="block text-slate-600 font-bold mb-1">Select Room Category</label>
+          <select id="modal-room-type-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-900">
+            <!-- Rendered dynamically -->
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-600 font-bold mb-1">Check-in *</label>
+            <input type="date" id="modal-book-checkin" value="2026-10-15" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+          </div>
+          <div>
+            <label class="block text-slate-600 font-bold mb-1">Check-out *</label>
+            <input type="date" id="modal-book-checkout" value="2026-10-17" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-600 font-bold mb-1">Nights</label>
+            <input type="number" id="modal-book-nights" value="2" min="1" max="30" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+          </div>
+          <div>
+            <label class="block text-slate-600 font-bold mb-1">Rooms</label>
+            <input type="number" id="modal-book-rooms" value="1" min="1" max="10" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 pt-2 border-t border-slate-100">
+          <div>
+            <label class="block text-slate-600 font-bold mb-1">Guest Name *</label>
+            <input type="text" id="modal-guest-name" required value="Ankit Sharma" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+          </div>
+          <div>
+            <label class="block text-slate-600 font-bold mb-1">WhatsApp Number *</label>
+            <input type="tel" id="modal-guest-phone" required value="+91 98938 54811" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+          </div>
+        </div>
+
+        <!-- Tariff Calculation -->
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+          <div class="flex justify-between text-slate-500">
+            <span>Standard Rack Rate:</span>
+            <span id="modal-summary-rack" class="rack-price">₹15,600</span>
+          </div>
+          <div class="flex justify-between text-emerald-700 font-bold">
+            <span>MHT Advantage (10% OFF):</span>
+            <span id="modal-summary-discount">- ₹1,560</span>
+          </div>
+          <div class="flex justify-between border-t border-slate-200 pt-1 text-sm font-extrabold text-slate-900">
+            <span>Net Client Payable:</span>
+            <span id="modal-summary-payable" class="text-blue-900 text-base">₹14,040</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary w-full py-3 text-xs font-bold justify-center shadow-md">
+          <i data-lucide="check-circle" class="w-4 h-4"></i> Confirm Reservation &amp; Get Voucher
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL: TOUR BOOKING
+       ======================================================== -->
+  <div id="tour-booking-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full border border-slate-200 shadow-2xl modal-enter max-h-[92vh] overflow-y-auto">
+      
+      <div class="flex items-start justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-3">
+          <img id="modal-tour-img" class="w-12 h-12 rounded-xl object-cover shadow-sm" />
+          <div>
+            <span class="discount-pill text-[10px]">10% TOUR SAVINGS</span>
+            <h3 id="modal-tour-title" class="font-bold text-base text-slate-900 mt-0.5">Tour Package</h3>
+            <p id="modal-tour-dest" class="text-xs text-slate-500">Destination</p>
+          </div>
+        </div>
+        <button onclick="document.getElementById('tour-booking-modal').classList.add('hidden')" class="p-1 text-slate-400 hover:text-slate-700">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="modal-tour-booking-form" class="space-y-3.5 mt-4 text-xs">
+        <div>
+          <span class="text-slate-500 block mb-1">MHT Advantage Tariff:</span>
+          <strong id="modal-tour-price" class="text-blue-900 text-sm">₹21,600 / person</strong>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-600 font-bold mb-1">Travel Date *</label>
+            <input type="date" id="tour-travel-date" value="2026-10-20" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+          </div>
+          <div>
+            <label class="block text-slate-600 font-bold mb-1">Total Travelers *</label>
+            <input type="number" id="tour-travelers-count" value="2" min="1" max="20" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-600 font-bold mb-1">Lead Guest Name *</label>
+            <input type="text" id="tour-guest-name" required value="Ankit Sharma" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+          </div>
+          <div>
+            <label class="block text-slate-600 font-bold mb-1">WhatsApp Number *</label>
+            <input type="tel" id="tour-guest-phone" required value="+91 98938 54811" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-blue-900" />
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary w-full py-3 text-xs font-bold justify-center shadow-md">
+          <i data-lucide="check-circle" class="w-4 h-4"></i> Confirm Tour &amp; Get Voucher
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL: FULL DETAILS
+       ======================================================== -->
+  <div id="details-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-3xl w-full border border-slate-200 shadow-2xl modal-enter max-h-[92vh] overflow-y-auto">
+      <div class="flex justify-end mb-1">
+        <button onclick="document.getElementById('details-modal').classList.add('hidden')" class="p-1 text-slate-400 hover:text-slate-700">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+      <div id="details-modal-content">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL: VOUCHER RECEIPT (CLEAN PDF INVOICE)
+       ======================================================== -->
+  <div id="voucher-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-white rounded-3xl p-4 sm:p-6 max-w-2xl w-full border border-slate-200 shadow-2xl modal-enter relative my-auto max-h-[92vh] overflow-y-auto">
+      <div class="flex justify-end no-print">
+        <button onclick="document.getElementById('voucher-modal').classList.add('hidden')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div id="voucher-modal-content">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL: AUTH & DUMMY OTP LOGIN (10% ADVANTAGE PASS)
+       ======================================================== -->
+  <div id="auth-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-slate-200 shadow-2xl modal-enter relative overflow-hidden">
+      
+      <!-- Modal Close Button -->
+      <button onclick="MHTApp.closeLoginModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <!-- Auth Modal Header -->
+      <div class="text-center space-y-2 mb-6">
+        <img src="images/mht-logo.jpg" class="w-16 h-16 rounded-full object-cover border-2 border-amber-400 mx-auto shadow-md" alt="MHT Logo" />
+        <h3 class="text-xl sm:text-2xl font-black text-slate-900">MHT Advantage Login</h3>
+        <p class="text-xs text-slate-500">Access your 10% lifetime discount pass, bookings, savings &amp; vouchers.</p>
+      </div>
+
+      <!-- STEP 1: Phone Number Input -->
+      <div id="auth-step-phone" class="space-y-4">
+        <div>
+          <label class="block text-xs uppercase font-extrabold text-slate-500 mb-1.5">Mobile Phone Number *</label>
+          <div class="relative flex items-center">
+            <span class="absolute left-3.5 text-xs font-bold text-slate-500">+91</span>
+            <input type="tel" id="auth-phone-input" value="9893854811" maxlength="10" placeholder="98938 54811" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-12 pr-4 py-3 text-sm text-slate-900 font-bold focus:outline-none focus:border-blue-900" />
+          </div>
+          <span class="text-[11px] text-slate-400 block mt-1">We will send a 4-digit verification code.</span>
+        </div>
+
+        <!-- One-Click Demo Phone Fill -->
+        <div class="flex items-center justify-between text-xs p-2.5 rounded-xl bg-amber-50 border border-amber-200/60 text-amber-900">
+          <span class="text-[11px] font-semibold">Demo VIP User:</span>
+          <button type="button" onclick="document.getElementById('auth-phone-input').value='9893854811'" class="text-[11px] font-black underline hover:text-amber-700">
+            Auto-fill 98938 54811
+          </button>
+        </div>
+
+        <button type="button" onclick="MHTApp.sendOTP()" class="btn-primary w-full py-3 text-xs font-bold justify-center shadow-md">
+          <span>Get Verification OTP</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+        </button>
+      </div>
+
+      <!-- STEP 2: 4-Digit Dummy OTP Verification -->
+      <div id="auth-step-otp" class="space-y-4 hidden">
+        <div class="p-3 rounded-xl bg-blue-50 border border-blue-200/60 text-blue-950 text-xs flex items-center justify-between">
+          <div>
+            <span class="text-slate-500 block text-[10px]">OTP sent to:</span>
+            <strong id="auth-sent-to-phone" class="font-bold">+91 98938 54811</strong>
+          </div>
+          <button type="button" onclick="MHTApp.backToPhoneStep()" class="text-[11px] font-bold text-blue-700 underline">
+            Change
+          </button>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label class="block text-xs uppercase font-extrabold text-slate-700">Enter 4-Digit OTP *</label>
+            <span class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-black">Dummy OTP: 1234</span>
+          </div>
+
+          <!-- 4 OTP Input Boxes -->
+          <div class="flex justify-center gap-3 my-3">
+            <input type="text" maxlength="1" id="otp-1" class="otp-digit-box" value="1" />
+            <input type="text" maxlength="1" id="otp-2" class="otp-digit-box" value="2" />
+            <input type="text" maxlength="1" id="otp-3" class="otp-digit-box" value="3" />
+            <input type="text" maxlength="1" id="otp-4" class="otp-digit-box" value="4" />
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] text-slate-500 pt-1">
+            <button type="button" onclick="MHTApp.fillDummyOTP()" class="font-bold text-amber-600 hover:text-amber-700 underline">
+              Auto-Fill (1234)
+            </button>
+            <span id="auth-resend-timer">Resend OTP in 30s</span>
+          </div>
+        </div>
+
+        <button type="button" onclick="MHTApp.verifyOTP()" class="btn-primary w-full py-3 text-xs font-bold justify-center shadow-md">
+          <i data-lucide="shield-check" class="w-4 h-4 mr-1"></i> Verify &amp; Unlock VIP Account
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL: NATIVE IOS / MOBILE APP 1-CLICK INSTALLATION SHEET
+       ======================================================== -->
+  <div id="ios-install-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white rounded-t-3xl sm:rounded-3xl p-5 sm:p-7 max-w-md w-full border border-slate-200 shadow-2xl modal-enter relative max-h-[92vh] overflow-y-auto">
+      
+      <!-- Top Drag Notch Indicator (iOS Sheet Style) -->
+      <div class="w-12 h-1.5 bg-slate-300 rounded-full mx-auto mb-4 sm:hidden"></div>
+
+      <!-- Close Button -->
+      <button onclick="document.getElementById('ios-install-modal').classList.add('hidden')" class="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition" aria-label="Close">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <!-- App Header & Icon -->
+      <div class="text-center space-y-2 mb-5">
+        <div class="relative inline-block">
+          <img src="images/mht-logo.jpg" class="w-16 h-16 rounded-2xl object-cover border-2 border-amber-400 mx-auto shadow-lg" alt="MHT App Icon" />
+          <span class="absolute -bottom-1 -right-1 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black text-[9px] px-1.5 py-0.5 rounded-full shadow-sm">VIP</span>
+        </div>
+        <h3 class="text-xl font-black text-slate-900 tracking-tight">Install MHT on your iPhone</h3>
+        <p class="text-xs text-slate-500">Add My Holiday Trip to your Home Screen for full-screen app experience &amp; 10% instant savings.</p>
+      </div>
+
+      <!-- 3-Step iOS Visual Guide -->
+      <div class="space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-200/80 mb-5 text-xs text-slate-800">
+        
+        <!-- Step 1 -->
+        <div class="flex items-center gap-3">
+          <div class="w-7 h-7 rounded-full bg-blue-600 text-white font-black text-xs flex items-center justify-center shrink-0">
+            1
+          </div>
+          <div class="flex-1">
+            <span class="font-bold">Tap the Safari Share button</span>
+            <div class="text-[11px] text-slate-500 flex items-center gap-1.5 mt-0.5">
+              <span>Located in the bottom toolbar:</span>
+              <span class="inline-flex items-center justify-center w-5 h-5 bg-blue-500 text-white rounded text-[10px]">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-200/60 my-1"></div>
+
+        <!-- Step 2 -->
+        <div class="flex items-center gap-3">
+          <div class="w-7 h-7 rounded-full bg-blue-600 text-white font-black text-xs flex items-center justify-center shrink-0">
+            2
+          </div>
+          <div class="flex-1">
+            <span class="font-bold">Scroll down &amp; tap "Add to Home Screen"</span>
+            <div class="text-[11px] text-slate-500 flex items-center gap-1.5 mt-0.5">
+              <span>Look for</span>
+              <span class="inline-flex items-center gap-1 bg-slate-200 text-slate-800 px-1.5 py-0.5 rounded font-bold text-[10px]">
+                <i data-lucide="plus-square" class="w-3 h-3 text-slate-700"></i> Add to Home Screen
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-200/60 my-1"></div>
+
+        <!-- Step 3 -->
+        <div class="flex items-center gap-3">
+          <div class="w-7 h-7 rounded-full bg-blue-600 text-white font-black text-xs flex items-center justify-center shrink-0">
+            3
+          </div>
+          <div class="flex-1">
+            <span class="font-bold">Tap "Add" in the top-right corner</span>
+            <span class="text-[11px] text-slate-500 block mt-0.5">MHT App icon is now added to your iPhone home screen!</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="space-y-2">
+        <button type="button" onclick="MHTApp.shareOrTriggerInstall()" class="btn-primary w-full py-3 text-xs font-bold justify-center shadow-lg">
+          <svg class="w-4 h-4 mr-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          <span>Tap to Open Safari Share Menu</span>
+        </button>
+        <button type="button" onclick="document.getElementById('ios-install-modal').classList.add('hidden')" class="w-full py-2.5 text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-xl transition">
+          Done / Close
+        </button>
+      </div>
+
+      <!-- Pointer for Mobile Safari -->
+      <div class="mt-4 pt-3 border-t border-slate-100 text-center sm:hidden">
+        <div class="ios-bounce-arrow flex flex-col items-center justify-center text-blue-600">
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Safari Toolbar is below</span>
+          <i data-lucide="arrow-down" class="w-5 h-5 text-blue-600 stroke-[3]"></i>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================
+       FLOATING WHATSAPP BUTTON
+       ======================================================== -->
+  <div class="fixed bottom-20 lg:bottom-6 right-6 z-50">
+    <a href="https://wa.me/919893854811?text=Hi%20My%20Holiday%20Trip,%20I%20would%20like%20to%20inquire%20about%20Singapore%20&%20Malaysia%20hotel/tour%20booking%20with%2010%%20discount." target="_blank" class="w-13 h-13 p-3.5 rounded-full bg-[#25D366] text-white shadow-2xl flex items-center justify-center hover:scale-110 transition cursor-pointer" aria-label="WhatsApp Contact">
+      <i data-lucide="message-circle" class="w-7 h-7"></i>
+    </a>
+  </div>
+
+  <!-- ========================================================
+       MOBILE BOTTOM NAVIGATION TAB BAR (NATIVE APP WITH STANDOUT CENTER BUTTON)
+       ======================================================== -->
+  <nav class="lg:hidden mobile-bottom-bar">
+    
+    <!-- Tab 1: Explore / Home -->
+    <button data-navigate="home" class="mobile-tab-item active" aria-label="Explore">
+      <i data-lucide="home" class="w-5 h-5 mb-0.5"></i>
+      <span>Explore</span>
+    </button>
+
+    <!-- Tab 2: Hotels (10% Off) -->
+    <button data-navigate="hotels" class="mobile-tab-item" aria-label="10% Discount Hotels">
+      <i data-lucide="building-2" class="w-5 h-5 mb-0.5"></i>
+      <span>Hotels</span>
+    </button>
+
+    <!-- Tab 3: STANDOUT BIG CIRCULAR FLOATING BUTTON (Malaysia Stays & 10% Deals) -->
+    <div class="mobile-tab-center-wrap">
+      <button data-navigate="malaysia" class="mobile-tab-center-btn" aria-label="Malaysia Stays &amp; 10% Deals">
+        <i data-lucide="sparkles" class="w-6 h-6 text-slate-950 stroke-[2.5]"></i>
+      </button>
+      <span class="mobile-tab-center-label">Malaysia</span>
+    </div>
+
+    <!-- Tab 4: Tour Packages -->
+    <button data-navigate="tours" class="mobile-tab-item" aria-label="Tour Packages">
+      <i data-lucide="compass" class="w-5 h-5 mb-0.5"></i>
+      <span>Tours</span>
+    </button>
+
+    <!-- Tab 5: Mobile Menu (Hamburger) -->
+    <button id="mobile-bottom-menu-btn" class="mobile-tab-item" aria-label="Open App Menu">
+      <i data-lucide="menu" class="w-5 h-5 mb-0.5"></i>
+      <span>Menu</span>
+    </button>
+
+  </nav>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

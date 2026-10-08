@@ -1,0 +1,28 @@
+{
+  "name": "My Holiday Trip — MHT Stays & Tours",
+  "short_name": "MHT Stays",
+  "description": "Exclusive 10% Discount on Partner Hotels & Curated Tour Packages across Singapore, Malaysia & India by MHT",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0C1E36",
+  "theme_color": "#0C1E36",
+  "orientation": "portrait-primary",
+  "categories": ["travel", "lifestyle", "shopping"],
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
+

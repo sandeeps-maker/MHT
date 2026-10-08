@@ -1,0 +1,931 @@
+/* ========================================================
+   MHT — Malaysia & Global Hotel & Tours
+   Look & Feel: Leonardo Hotels Inspired Design System
+   Aesthetic: Contemporary European Hospitality, Deep Navy, Crisp White & Warm Accents
+   ======================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+:root {
+  /* Leonardo-Inspired Color Palette */
+  --color-primary: #0C1E36;       /* Deep Leonardo Navy */
+  --color-primary-light: #162F52; /* Medium Navy */
+  --color-secondary: #E05638;     /* Warm Coral / Terracotta Accent */
+  --color-gold: #D4AF37;          /* Premium Gold */
+  --color-teal: #008080;          /* Teal Advantage Accent */
+  --color-emerald: #059669;       /* Discount Green */
+
+  /* Neutral Backgrounds (Light & Clean Theme with Dark Accents) */
+  --bg-page: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-dark: #0C1E36;
+  --bg-card: #FFFFFF;
+  --bg-card-dark: #12243E;
+
+  /* Typography Colors */
+  --text-dark: #0F172A;
+  --text-muted: #64748B;
+  --text-light: #F8FAFC;
+
+  /* Borders & Shadows */
+  --border-light: #E2E8F0;
+  --border-dark: rgba(255, 255, 255, 0.12);
+  --shadow-sm: 0 2px 8px rgba(12, 30, 54, 0.06);
+  --shadow-md: 0 10px 25px -5px rgba(12, 30, 54, 0.1);
+  --shadow-lg: 0 20px 40px -10px rgba(12, 30, 54, 0.18);
+  --shadow-floating: 0 25px 50px -12px rgba(12, 30, 54, 0.25);
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  background-color: var(--bg-page);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* No Scrollbar Utility for Horizontal Pill Sliders */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Navigation Header */
+.leonardo-nav {
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: 0 2px 12px rgba(12, 30, 54, 0.05);
+}
+
+/* Hero Background & Dynamic Destination Imagery (Leonardo Style) */
+.hero-bg-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* Silky Smooth Hero Typography Transition */
+.hero-text-anim {
+  transition: opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1), transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), filter 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform, filter;
+}
+
+.hero-text-anim.text-fade-out {
+  opacity: 0 !important;
+  transform: translateY(-8px) scale(0.985) !important;
+  filter: blur(4px) !important;
+}
+
+.hero-text-anim.text-enter-prep {
+  transition: none !important;
+  opacity: 0 !important;
+  transform: translateY(8px) scale(1.01) !important;
+  filter: blur(4px) !important;
+}
+
+.hero-country-pill {
+  padding: 0.65rem 1.15rem;
+  border-radius: var(--radius-lg);
+  background: rgba(12, 30, 54, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-flex;
+  user-select: none;
+  min-width: 145px;
+}
+
+.hero-country-pill:hover {
+  background: rgba(22, 47, 82, 0.85);
+  border-color: rgba(212, 175, 55, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+.hero-country-pill.active {
+  background: #FFFFFF;
+  color: var(--color-primary);
+  border-color: #FFFFFF;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 0 0 2.5px rgba(212, 175, 55, 0.85);
+  transform: translateY(-3px);
+}
+
+.hero-country-pill.active .country-pill-subdata {
+  color: #475569;
+}
+
+.hero-country-pill.active .country-pill-subdata span.text-amber-400 {
+  color: #B45309 !important; /* Rich warm amber on white card */
+}
+
+/* Floating Booking Search Bar (Leonardo-style) */
+.leonardo-search-bar {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-floating);
+  border: 1px solid var(--border-light);
+}
+
+.search-field-segment {
+  border-right: 1px solid var(--border-light);
+  padding: 0.85rem 1.25rem;
+  transition: var(--transition);
+}
+
+.search-field-segment:last-child {
+  border-right: none;
+}
+
+.search-field-segment:hover {
+  background-color: #F8FAFC;
+}
+
+/* MHT Advantage Badges */
+.mht-advantage-badge {
+  background: linear-gradient(135deg, #0C1E36 0%, #162F52 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+}
+
+.discount-pill {
+  background: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+  font-weight: 700;
+  font-size: 0.72rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--color-secondary);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  padding: 0.8rem 1.6rem;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: #C7452A;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(224, 86, 56, 0.35);
+}
+
+.btn-navy {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-navy:hover {
+  background: var(--color-primary-light);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(12, 30, 54, 0.25);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  background: var(--color-primary);
+  color: #FFFFFF;
+}
+
+/* Hotel & Tour Cards (Leonardo Style) */
+.leonardo-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.leonardo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: #CBD5E1;
+}
+
+.leonardo-card:hover .card-img {
+  transform: scale(1.05);
+}
+
+.card-img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Strike Price & Rates */
+.rack-price {
+  text-decoration: line-through;
+  color: #94A3B8;
+  font-size: 0.85rem;
+}
+
+.member-price {
+  color: var(--color-primary);
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+/* Advantage Club Banner (Leonardo-style) */
+.advantage-banner {
+  background: linear-gradient(135deg, #0C1E36 0%, #162F52 100%);
+  color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Destination Pill Cards */
+.destination-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  height: 240px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.destination-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.destination-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Mobile Drawer & Fade In/Out Overlay (White Native Mobile App Theme) */
+.mobile-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-drawer-container {
+  width: 100%;
+  height: 100%;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: 0;
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem 1.25rem 2rem 1.25rem;
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-drawer-overlay.open .mobile-drawer-container {
+  transform: translateX(0);
+}
+
+/* Stylish Mobile Menu Nav Item Cards (White Version) */
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-lg);
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  color: #1E293B;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:active {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+  transform: translateX(3px);
+  color: #0C1E36;
+}
+
+.mobile-nav-link.active {
+  background: #FFFBEB;
+  border-color: #F59E0B;
+  color: #78350F;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.12);
+}
+
+.mobile-nav-link.active .nav-icon-wrap {
+  background: #F59E0B;
+  color: #FFFFFF;
+  border-color: #F59E0B;
+}
+
+.nav-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #D97706;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+}
+
+/* Mobile Bottom Tab Bar (Native App Style) */
+.mobile-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 -8px 30px rgba(12, 30, 54, 0.12);
+  z-index: 50;
+  padding: 0.35rem 0.5rem 0.5rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.mobile-tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #64748B;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0.25rem 0;
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-tab-item:active {
+  transform: scale(0.94);
+}
+
+.mobile-tab-item.active {
+  color: var(--color-primary);
+  font-weight: 800;
+}
+
+.mobile-tab-item.active i {
+  color: #D97706;
+  transform: translateY(-1px);
+}
+
+.mobile-tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  width: 16px;
+  height: 3px;
+  background: linear-gradient(90deg, #F59E0B, #D97706);
+  border-radius: 9999px;
+}
+
+/* Standout Big Middle Circular Floating Button */
+.mobile-tab-center-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.mobile-tab-center-btn {
+  position: absolute;
+  top: -24px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 40%, #D97706 100%);
+  color: #0F172A;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px -3px rgba(245, 158, 11, 0.6), 0 4px 10px rgba(0, 0, 0, 0.15);
+  border: 4px solid #FFFFFF;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  z-index: 60;
+  text-decoration: none;
+}
+
+.mobile-tab-center-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 14px 30px -3px rgba(245, 158, 11, 0.75), 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-tab-center-btn:active {
+  transform: translateY(0) scale(0.92);
+}
+
+.mobile-tab-center-btn.active {
+  box-shadow: 0 10px 25px -3px rgba(245, 158, 11, 0.8), 0 0 0 3px rgba(212, 175, 55, 0.5);
+}
+
+.mobile-tab-center-label {
+  font-size: 0.58rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #0F172A;
+  margin-top: 32px;
+  letter-spacing: 0.03em;
+}
+
+/* PWA App Banner */
+.pwa-top-bar {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Modals */
+.modal-backdrop {
+  background: rgba(12, 30, 54, 0.75);
+  backdrop-filter: blur(8px);
+}
+
+.modal-enter {
+  animation: modalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* View Sections */
+.view-section {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.view-section.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Toast Notifications */
+#toast-container {
+  position: fixed;
+  top: 85px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-left: 4px solid var(--color-secondary);
+  color: var(--text-dark);
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 280px;
+  max-width: 400px;
+  transform: translateX(120%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast.show {
+  transform: translateX(0);
+}
+
+/* ========================================================
+   DETAIL PAGES (HOTEL & TOUR) PHOTO GALLERY & SELECTION WIDGETS
+   ======================================================== */
+.gallery-grid-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 190px 190px;
+  gap: 10px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .gallery-grid-main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 280px;
+  }
+  .gallery-secondary {
+    display: none;
+  }
+}
+
+.gallery-photo-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #0F172A;
+}
+
+.gallery-photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-photo-item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-thumb-track {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.gallery-thumb-btn {
+  width: 84px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+
+.gallery-thumb-btn:hover,
+.gallery-thumb-btn.active {
+  opacity: 1;
+  border-color: var(--color-gold);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+  transform: scale(1.03);
+}
+
+.gallery-thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Room Selection Cards */
+.room-selection-card {
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  background: #FFFFFF;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.room-selection-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: var(--shadow-md);
+}
+
+.room-selection-card.selected {
+  border-color: #0C1E36;
+  background: #F8FAFC;
+  box-shadow: 0 10px 30px -10px rgba(12, 30, 54, 0.2);
+}
+
+/* Add-on Chips & Cards */
+.option-select-card {
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  background: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option-select-card:hover {
+  border-color: var(--color-gold);
+  background: #FEFDF8;
+}
+
+.option-select-card.selected {
+  border-color: #D4AF37;
+  background: #FFFDF5;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.15);
+}
+
+/* Sticky Booking Summary Widget */
+.sticky-booking-card {
+  position: sticky;
+  top: 90px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-floating);
+  overflow: hidden;
+}
+
+/* Itinerary Timeline Nodes */
+.itinerary-step-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.75rem;
+  box-shadow: 0 4px 10px rgba(12, 30, 54, 0.2);
+  flex-shrink: 0;
+}
+
+/* ========================================================
+   MY ACCOUNT & REWARD VOUCHER STYLES
+   ======================================================== */
+.account-tab-btn {
+  background: #FFFFFF;
+  color: #475569;
+  border: 1.5px solid #E2E8F0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.account-tab-btn:hover {
+  background: #F8FAFC;
+  color: #0F172A;
+  border-color: #CBD5E1;
+}
+
+.account-tab-btn.active {
+  background: #0C1E36;
+  color: #FFFFFF;
+  border-color: #0C1E36;
+  box-shadow: 0 4px 15px rgba(12, 30, 54, 0.2);
+}
+
+.account-tab-btn.active span[class*="bg-"] {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #FFFFFF !important;
+}
+
+/* Reward Voucher Ticket Style */
+.voucher-ticket-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.voucher-ticket-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -8px rgba(12, 30, 54, 0.12);
+  border-color: #CBD5E1;
+}
+
+.voucher-ticket-cutout-left,
+.voucher-ticket-cutout-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: #F8FAFC;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.voucher-ticket-cutout-left {
+  left: -10px;
+  box-shadow: inset -2px 0 3px rgba(0, 0, 0, 0.06);
+}
+
+.voucher-ticket-cutout-right {
+  right: -10px;
+  box-shadow: inset 2px 0 3px rgba(0, 0, 0, 0.06);
+}
+
+/* OTP Digits Input */
+.otp-digit-box {
+  width: 52px;
+  height: 56px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  border-radius: 0.75rem;
+  border: 2px solid #E2E8F0;
+  background: #F8FAFC;
+  color: #0C1E36;
+  transition: all 0.2s ease;
+}
+
+.otp-digit-box:focus {
+  border-color: #0C1E36;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(12, 30, 54, 0.1);
+  outline: none;
+}
+
+/* ========================================================
+   CLEAN PDF & PRINT STYLESHEET
+   ======================================================== */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #voucher-modal,
+  #voucher-modal #clean-pdf-voucher,
+  #voucher-modal #clean-pdf-voucher * {
+    visibility: visible !important;
+  }
+  #voucher-modal {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #FFFFFF !important;
+    display: block !important;
+    overflow: visible !important;
+    z-index: 99999 !important;
+  }
+  #voucher-modal > div {
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 1.5rem !important;
+    margin: 0 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* iOS PWA Install Bottom Sheet Animation */
+@keyframes iosBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.ios-bounce-arrow {
+  animation: iosBounce 1.5s infinite ease-in-out;
+}
+
+.ios-share-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #007AFF;
+  color: #FFFFFF;
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-weight: bold;
+}
+
+
